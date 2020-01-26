@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C5F90F3D-E747-4C20-8B5D-F4686BD6F99B}</ProjectGuid>
+    <Keyword>QtVS_v302</Keyword>
+    <QtMsBuild Condition="'$(QtMsBuild)'=='' OR !Exists('$(QtMsBuild)\qt.targets')">$(MSBuildProjectDirectory)\QtMsBuild</QtMsBuild>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseOfMfc>false</UseOfMfc>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
+    <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
+  </Target>
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Label="Shared" />
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt_defaults.props')">
+    <Import Project="$(QtMsBuild)\qt_defaults.props" />
+  </ImportGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <QtInstall>msvc2015_64</QtInstall>
+    <QtModules>charts;core;gui;widgets</QtModules>
+  </PropertyGroup>
+  <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <QtInstall>msvc2015_64</QtInstall>
+    <QtModules>charts;core;gui;widgets</QtModules>
+  </PropertyGroup>
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
+    <Import Project="$(QtMsBuild)\qt.props" />
+  </ImportGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_CRT_SECURE_NO_WARNINGS;_POSTPROC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DebugInformationFormat />
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="dataprocess.cpp" />
+    <ClCompile Include="EBAS_V_UI_R.cpp" />
+    <ClCompile Include="DialogStation.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainWindow.cpp" />
+    <ClCompile Include="PVT\assitFunc4Bin.c" />
+    <ClCompile Include="PVT\bititemproc.c" />
+    <ClCompile Include="PVT\CalcSvPVT.c" />
+    <ClCompile Include="PVT\cfgpara.c" />
+    <ClCompile Include="PVT\constdef.c" />
+    <ClCompile Include="PVT\coordinate.c" />
+    <ClCompile Include="PVT\FrameDecode.c" />
+    <ClCompile Include="PVT\global.c" />
+    <ClCompile Include="PVT\hcp.c" />
+    <ClCompile Include="PVT\KfPVT.c" />
+    <ClCompile Include="PVT\LsPVT.c" />
+    <ClCompile Include="PVT\matrix.c" />
+    <ClCompile Include="PVT\nmea0183.c" />
+    <ClCompile Include="PVT\novatel.c" />
+    <ClCompile Include="PVT\PostProc.c" />
+    <ClCompile Include="PVT\pvt.c" />
+    <ClCompile Include="PVT\PVTRcvrInfo.c" />
+    <ClCompile Include="PVT\rtcm3entrytbl.c" />
+    <ClCompile Include="PVT\rtcm3handle.c" />
+    <ClCompile Include="PVT\rtcm3proc.c" />
+    <ClCompile Include="PVT\RTDKF.c" />
+    <ClCompile Include="PVT\rtk.c" />
+    <ClCompile Include="PVT\RTKCalBaseline.c" />
+    <ClCompile Include="PVT\RTKLAMBDA.c" />
+    <ClCompile Include="PVT\RTKTools.c" />
+    <ClCompile Include="PVT\TimeProc.c" />
+    <ClCompile Include="stdafx.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="MainWindow.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="DialogStation.ui" />
+    <QtUic Include="MainWindow.ui" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtRcc Include="MainWindow.qrc" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="DialogStation.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtMoc Include="EBAS_V_UI_R.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Communication\NtripSocket.h" />
+    <ClInclude Include="dataprocess.h" />
+    <ClInclude Include="Nrtk\rtklib.h" />
+    <ClInclude Include="PVT\assitFunc4Bin.h" />
+    <ClInclude Include="PVT\bititemproc.h" />
+    <ClInclude Include="PVT\CalcSvPVT.h" />
+    <ClInclude Include="PVT\cfgpara.h" />
+    <ClInclude Include="PVT\constdef.h" />
+    <ClInclude Include="PVT\coordinate.h" />
+    <ClInclude Include="PVT\define.h" />
+    <ClInclude Include="PVT\FrameDecode.h" />
+    <ClInclude Include="PVT\global.h" />
+    <ClInclude Include="PVT\hcp.h" />
+    <ClInclude Include="PVT\KfPVT.h" />
+    <ClInclude Include="PVT\LsPVT.h" />
+    <ClInclude Include="PVT\matrix.h" />
+    <ClInclude Include="PVT\nmea0183.h" />
+    <ClInclude Include="PVT\novatel.h" />
+    <ClInclude Include="PVT\PostProc.h" />
+    <ClInclude Include="PVT\pvt.h" />
+    <ClInclude Include="PVT\PVTRcvrInfo.h" />
+    <ClInclude Include="PVT\rtcm3.h" />
+    <ClInclude Include="PVT\RTDKF.h" />
+    <ClInclude Include="PVT\rtk.h" />
+    <ClInclude Include="PVT\RTKCalBaseline.h" />
+    <ClInclude Include="PVT\RTKConstants.h" />
+    <ClInclude Include="PVT\RTKLAMBDA.h" />
+    <ClInclude Include="PVT\RTKTools.h" />
+    <ClInclude Include="PVT\TimeProc.h" />
+    <ClInclude Include="PVT\typedefine.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
+    <Import Project="$(QtMsBuild)\qt.targets" />
+  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

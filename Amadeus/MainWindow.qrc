@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>Resources/obsBase.bmp</file>
+        <file>Resources/obsNet.bmp</file>
+        <file>Resources/obsRoot.bmp</file>
+        <file>Resources/obsRover.bmp</file>
+    </qresource>
+</RCC>

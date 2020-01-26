@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DialogStation</class>
+ <widget class="QDialog" name="DialogStation">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DialogStation</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTreeWidget" name="treeWidget">
+     <column>
+      <property name="text">
+       <string notr="true">节点</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>状态</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+  </layout>
+  <action name="action_CreateNewNet">
+   <property name="text">
+    <string>新建（New）</string>
+   </property>
+  </action>
+  <action name="action_Connect">
+   <property name="text">
+    <string>连接（Connect）</string>
+   </property>
+  </action>
+  <action name="action_Disconnect">
+   <property name="text">
+    <string>断开（Disconnect）</string>
+   </property>
+  </action>
+  <action name="action_Add">
+   <property name="text">
+    <string>管理（Add）</string>
+   </property>
+  </action>
+  <action name="action_Set">
+   <property name="text">
+    <string>设置（Set）</string>
+   </property>
+  </action>
+  <action name="action_Remove">
+   <property name="text">
+    <string>移除（Remove）</string>
+   </property>
+  </action>
+  <action name="action_Start">
+   <property name="text">
+    <string>解算（Start）</string>
+   </property>
+  </action>
+  <action name="action_Stop">
+   <property name="text">
+    <string>停止（Stop）</string>
+   </property>
+  </action>
+  <action name="action_Edit">
+   <property name="text">
+    <string>编辑（Edit）</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>
