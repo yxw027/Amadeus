@@ -3,6 +3,12 @@
 #include "Nrtk\rtklib.h"
 #include <map>
 //#include "rsltprc.h"
+
+#include <QString>
+#include <QVector>
+#define CString QString
+#define CStringArray QVector<QString>
+
 using namespace std;
 
 // CNtripSocket command target

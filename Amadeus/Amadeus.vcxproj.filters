@@ -23,24 +23,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files\PVT">
-      <UniqueIdentifier>{d4d7fdc9-3723-401c-bcf2-049a603999bc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\PVT">
-      <UniqueIdentifier>{5ba2f162-bc7f-40f9-b4a0-01e26ca7622d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Communication">
-      <UniqueIdentifier>{9b237bef-77c7-42db-8682-a7e60b9933f1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Communication">
-      <UniqueIdentifier>{375ad113-5338-48f7-8e54-72d5982a5fbd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Nrtk">
-      <UniqueIdentifier>{b19b2e63-0723-405c-a6c4-ab3974cbd1c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Nrtk">
-      <UniqueIdentifier>{a116b8f2-37d6-4e37-9508-a0a841a1163b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -56,87 +38,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EBAS_V_UI_R.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\assitFunc4Bin.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\bititemproc.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\CalcSvPVT.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\cfgpara.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\constdef.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\coordinate.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\FrameDecode.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\global.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\hcp.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\KfPVT.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\LsPVT.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\matrix.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\nmea0183.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\novatel.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\PostProc.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\pvt.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\PVTRcvrInfo.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\rtcm3entrytbl.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\rtcm3handle.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\rtcm3proc.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\RTDKF.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\rtk.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\RTKCalBaseline.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\RTKLAMBDA.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\RTKTools.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="PVT\TimeProc.c">
-      <Filter>Source Files\PVT</Filter>
-    </ClCompile>
-    <ClCompile Include="dataprocess.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -170,96 +71,6 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\assitFunc4Bin.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\bititemproc.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\CalcSvPVT.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\cfgpara.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\constdef.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\coordinate.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\define.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\FrameDecode.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\global.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\hcp.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\KfPVT.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\LsPVT.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\matrix.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\nmea0183.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\novatel.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\PostProc.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\pvt.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\PVTRcvrInfo.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\rtcm3.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\RTDKF.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\rtk.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\RTKCalBaseline.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\RTKConstants.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\RTKLAMBDA.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\RTKTools.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\TimeProc.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="PVT\typedefine.h">
-      <Filter>Header Files\PVT</Filter>
-    </ClInclude>
-    <ClInclude Include="Communication\NtripSocket.h">
-      <Filter>Header Files\Communication</Filter>
-    </ClInclude>
-    <ClInclude Include="dataprocess.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Nrtk\rtklib.h">
-      <Filter>Header Files\Nrtk</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
