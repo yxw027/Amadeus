@@ -23,6 +23,18 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Header Files\Communication">
+      <UniqueIdentifier>{192d826c-8a93-463a-bdd6-ba4b4c638f9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Communication">
+      <UniqueIdentifier>{f6259179-0af7-423f-941f-8bbe5e0ad95c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Rtklib">
+      <UniqueIdentifier>{b1274570-c49f-4699-84a6-e3ed0784623a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Rtklib">
+      <UniqueIdentifier>{a6c5a54f-313c-4b7b-86f2-6d08db8b28ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -37,8 +49,20 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Communication\NtripSocket.cpp">
+      <Filter>Source Files\Communication</Filter>
+    </ClCompile>
     <ClCompile Include="EBAS_V_UI_R.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Communication\NtripClient.cpp">
+      <Filter>Source Files\Communication</Filter>
+    </ClCompile>
+    <ClCompile Include="Nrtk\rtkcmn.cpp">
+      <Filter>Source Files\Rtklib</Filter>
+    </ClCompile>
+    <ClCompile Include="Nrtk\WindupCorrection.cpp">
+      <Filter>Source Files\Rtklib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,6 +95,21 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Communication\NtripSocket.h">
+      <Filter>Header Files\Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Nrtk\rtklib.h">
+      <Filter>Header Files\Rtklib</Filter>
+    </ClInclude>
+    <ClInclude Include="Communication\NtripClient.h">
+      <Filter>Header Files\Communication</Filter>
+    </ClInclude>
+    <ClInclude Include="Nrtk\GPS.H">
+      <Filter>Header Files\Rtklib</Filter>
+    </ClInclude>
+    <ClInclude Include="Nrtk\GPSmodel.h">
+      <Filter>Header Files\Rtklib</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
