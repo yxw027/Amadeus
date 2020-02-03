@@ -6,11 +6,11 @@
 #include "define.h"
 #include "pvt.h"
 
-//#ifndef _SIMULATE
-//#ifndef _POSTPROC
-//#include "BitSync.h"
-//#endif
-//#endif
+#ifndef _SIMULATE
+#ifndef _POSTPROC
+#include "BitSync.h"
+#endif
+#endif
 
 #define SUBFRAME_LEN 10
 #define FRAME_SYNO_BUF_LEN 10

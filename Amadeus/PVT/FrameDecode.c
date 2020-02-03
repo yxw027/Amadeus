@@ -1,11 +1,11 @@
 #include "FrameDecode.h"
-//#ifndef _POSTPROC
-//#ifndef _SIMULATE
-//#include "BD2SfParse.h"
-//#include "GPSSfParse.h"
-//#include "GloSfParse.h"
-//#endif
-//#endif
+#ifndef _POSTPROC
+#ifndef _SIMULATE
+#include "BD2SfParse.h"
+#include "GPSSfParse.h"
+#include "GloSfParse.h"
+#endif
+#endif
 
 AlmEphUTCInfo Sys3AlmEphUTCInfo;
 

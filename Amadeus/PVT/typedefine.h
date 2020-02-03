@@ -68,11 +68,11 @@ typedef char           			INT8;
 #define TRUE                    1
 
 
-//#define bool int
+#define bool int
 
 #define f_abs(x) 	(((x)>0.0)?(x):(-(x)))
 
-#define LOCAL  static 
+#define LOCAL  static
 
 
 #define FAILED          0x00

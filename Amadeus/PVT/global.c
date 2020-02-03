@@ -10,6 +10,7 @@
 #include "nmea0183.h"
 #include "UpdateInfo.h"
 #include "rtk.h"
+//#include "E:\DSP\code\Work\DSP\X2380\GNSS_TY_Pro\GnssTYPro\C6747BSP\evmc6747_sys.h"
 #ifndef _POSTPROC
 #ifndef _SIMULATE
 #include "GnssTYProcfg.h"
@@ -65,7 +66,7 @@ sys_task_rec TSK1_List[TASK1_GRP_NUM]=
 	{TaskUpdateInfo, 		100},
 	{UpdateACQMan, 			100},
 	{TaskPeriodicOutput, 	100},
-	//{TaskSysBackup, 		400},	
+	{TaskSysBackup, 		400},	
 	{NULL, 					0},
 };
 
@@ -85,7 +86,7 @@ void UpdateTask1_List_Cycle(void)
 
 void Task1_PVT(void)
 {
-	/*int32 i=0;
+	int32 i=0;
 	static word64 curTFTcnt={{0,0}};
 	int32 difTFTcnt=0;
 	static bool bModifiedTFT=FALSE;
@@ -151,68 +152,68 @@ void Task1_PVT(void)
 		}
 
 		TSK_yield();
-	}*/
+	}
 }
 
 
 
 void Task4_UartRecv_Debug0(void)
 {
-	//while(1)
-	//{
-	//	SEM_pend(&SEM1,SYS_FOREVER);
-	//	TaskProtocolInput(&(glStruUart[COM_ID_DEBUG0]));
-	//	TSK_yield();
-	//}
+	while(1)
+	{
+		SEM_pend(&SEM1,SYS_FOREVER);
+		TaskProtocolInput(&(glStruUart[COM_ID_DEBUG0]));
+		TSK_yield();
+	}
 }
 
 void Task5_UartSend_Debug1(void)
 {
-	//while(1)
-	//{
-	//	SEM_pend(&SEM6,SYS_FOREVER);
-	//	UartSend(COM_ID_DEBUG1);
-	//	TSK_yield();
-	//}
+	while(1)
+	{
+		SEM_pend(&SEM6,SYS_FOREVER);
+		UartSend(COM_ID_DEBUG1);
+		TSK_yield();
+	}
 }
 
 void Task6_UartSend_Debug0(void) 
 {
-	//while(1)
-	//{
-	//	SEM_pend(&SEM3,SYS_FOREVER);
-	//	UartSend(COM_ID_DEBUG0);
-	//	TSK_yield();
-	//}
+	while(1)
+	{
+		SEM_pend(&SEM3,SYS_FOREVER);
+		UartSend(COM_ID_DEBUG0);
+		TSK_yield();
+	}
 }
 void Task8_UartRecv_Debug1(void)
 {
-	//while(1)
-	//{
-	//	SEM_pend(&SEM7,SYS_FOREVER);
-	//	TaskProtocolInput(&(glStruUart[COM_ID_DEBUG1]));
-	//	TSK_yield();
-	//}
+	while(1)
+	{
+		SEM_pend(&SEM7,SYS_FOREVER);
+		TaskProtocolInput(&(glStruUart[COM_ID_DEBUG1]));
+		TSK_yield();
+	}
 }
 
 void Task7_Flash_BackUp(void)
 {
-	//while(1)
-	//{
-	//	SEM_pend(&SEM5,SYS_FOREVER);
-	//	TaskOpFlash();
-	//	TSK_yield();
-	//}
+	while(1)
+	{
+		SEM_pend(&SEM5,SYS_FOREVER);
+		TaskOpFlash();
+		TSK_yield();
+	}
 }
 
 void ResetSystem(void)
 {
-	//_disable_interrupts();
+	_disable_interrupts();
 
-	//TimerWatchdogForbid(TIMER1_BASE);                             
-	//TimerSetUpWatchDog(0x50,0x0);
-	//TimerWatchdogActivate(TIMER1_BASE);
-	//while(1);
+	TimerWatchdogForbid(TIMER1_BASE);                             
+	TimerSetUpWatchDog(0x50,0x0);
+	TimerWatchdogActivate(TIMER1_BASE);
+	while(1);
 }
 
 #endif

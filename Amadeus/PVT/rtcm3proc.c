@@ -12,7 +12,7 @@
 #include "rtcm3.h"
 #include "hcp.h"
 #include "cfgpara.h"
-#include "UartFunc.h"
+//#include "UartFunc.h"
 #include "rtk.h"
 #include "pvt.h"
 #include "constdef.h"

@@ -3,7 +3,7 @@
 #define RMO_H_
 #include <string.h>
 #include "TimeProc.h"
-#include "Coordinate.h"
+#include "Coordinate.h""
 //#ifndef _SIMULATE
 //#include "UartFunc.h"
 //#endif

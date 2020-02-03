@@ -16,7 +16,9 @@ extern int normv3(const double *a, double *b)
 	b[2] = a[2] / r;
 	return 1;
 }
-extern double dot(const double *a, const double *b, int n)
+
+//extern double dot(const double *a, const double *b, int n)
+static double dot(const double *a, const double *b, int n)
 {
 	double c = 0.0;
 
