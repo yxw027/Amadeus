@@ -114,7 +114,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #endif
-//#include <mmsystem.h>
+#include <mmsystem.h>
 #include "rtklib.h"
 
 static const char rcsid[]="$Id: rtkcmn.c,v 1.1 2008/07/17 21:48:06 ttaka Exp ttaka $";

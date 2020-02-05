@@ -1129,7 +1129,7 @@ void CalcBaseStationSVPos(OBSEV* PrmSlave)
 				
 		}
 		// 查看不了函数定义，显示观测量？
-		SatShowObs(PrmSlave);
+		////////SatShowObs(PrmSlave);
 	}
 	else
 		PrmSlave->bSinglePosValid=FALSE;

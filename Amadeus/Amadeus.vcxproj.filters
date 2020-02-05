@@ -64,12 +64,6 @@
     <ClCompile Include="Communication\NtripClient.cpp">
       <Filter>Source Files\Communication</Filter>
     </ClCompile>
-    <ClCompile Include="Nrtk\rtkcmn.cpp">
-      <Filter>Source Files\Rtklib</Filter>
-    </ClCompile>
-    <ClCompile Include="Nrtk\WindupCorrection.cpp">
-      <Filter>Source Files\Rtklib</Filter>
-    </ClCompile>
     <ClCompile Include="PVT\assitFunc4Bin.c">
       <Filter>Source Files\PVT</Filter>
     </ClCompile>
@@ -148,6 +142,9 @@
     <ClCompile Include="PVT\TimeProc.c">
       <Filter>Source Files\PVT</Filter>
     </ClCompile>
+    <ClCompile Include="DialogStationNetCreate.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
@@ -159,12 +156,18 @@
     <QtMoc Include="EBAS_V_UI_R.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="DialogStationNetCreate.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="MainWindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="DialogStation.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="DialogStationNetCreate.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -287,6 +290,9 @@
     </ClInclude>
     <ClInclude Include="PVT\UpdateInfo.h">
       <Filter>Header Files\PVT</Filter>
+    </ClInclude>
+    <ClInclude Include="globalfunc.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

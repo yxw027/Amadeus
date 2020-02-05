@@ -29,22 +29,22 @@
     </widget>
    </item>
   </layout>
-  <action name="action_CreateNewNet">
+  <action name="actionNetCreate">
    <property name="text">
     <string>新建（New）</string>
    </property>
   </action>
-  <action name="action_Connect">
+  <action name="actionNetConnect">
    <property name="text">
     <string>连接（Connect）</string>
    </property>
   </action>
-  <action name="action_Disconnect">
+  <action name="actionNetDisconnect">
    <property name="text">
     <string>断开（Disconnect）</string>
    </property>
   </action>
-  <action name="action_Add">
+  <action name="actionSiteAdd">
    <property name="text">
     <string>管理（Add）</string>
    </property>

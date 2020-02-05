@@ -88,11 +88,10 @@
     <ClCompile Include="Communication\NtripClient.cpp" />
     <ClCompile Include="Communication\NtripSocket.cpp" />
     <ClCompile Include="DialogStation.cpp" />
+    <ClCompile Include="DialogStationNetCreate.cpp" />
     <ClCompile Include="EBAS_V_UI_R.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
-    <ClCompile Include="Nrtk\rtkcmn.cpp" />
-    <ClCompile Include="Nrtk\WindupCorrection.cpp" />
     <ClCompile Include="PVT\assitFunc4Bin.c" />
     <ClCompile Include="PVT\bititemproc.c" />
     <ClCompile Include="PVT\CalcSvPVT.c" />
@@ -129,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="DialogStation.ui" />
+    <QtUic Include="DialogStationNetCreate.ui" />
     <QtUic Include="MainWindow.ui" />
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +141,8 @@
     <ClInclude Include="Communication\NtripClient.h" />
     <ClInclude Include="Communication\NtripSocket.h" />
     <QtMoc Include="EBAS_V_UI_R.h" />
+    <QtMoc Include="DialogStationNetCreate.h" />
+    <ClInclude Include="globalfunc.h" />
     <ClInclude Include="Nrtk\GPS.H" />
     <ClInclude Include="Nrtk\GPSmodel.h" />
     <ClInclude Include="Nrtk\rtklib.h" />

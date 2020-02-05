@@ -185,7 +185,7 @@ void handle_RTCM3_RX_MSG_1006(word16 msgid,  const byte * const p_data, word16 d
 #ifndef _POSTPROC
 	SetBaseStationInfoForRove(Msg1006Info.ReferStationID, height, &pos);
 #else
-	SendMessgePOS();
+	////////SendMessgePOS();
 	if(glStruUart->comid == 1)//BASE
 	{
 		SetBaseStationInfoForRove(Msg1006Info.ReferStationID, height, &pos);
@@ -277,7 +277,7 @@ void handle_RTCM3_RX_MSG_1019(word16 msgid,  const byte * const p_data, word16 d
 			sec_of_week -= GPS_BD_SYSTIME_OFFSET;
 			toe_next_eph += SECONDS_IN_HOUR;
 		}
-		SendMessgeNAV(toe_next_eph,wn_next_eph);
+		////////SendMessgeNAV(toe_next_eph,wn_next_eph);
 	}
 #else
 	ephage = CalcSVEPHAge(ephitem.svid, wn, (int32)sec_of_week);
@@ -350,7 +350,7 @@ void handle_RTCM3_RX_MSG_1047(word16 msgid,  const byte * const p_data, word16 d
 			sec_of_week -= GPS_BD_SYSTIME_OFFSET;
 			toe_next_eph += SECONDS_IN_HOUR;
 		}
-		SendMessgeNAV(toe_next_eph,wn_next_eph);
+		////////SendMessgeNAV(toe_next_eph,wn_next_eph);
 	}
 
 #else
@@ -435,7 +435,7 @@ void handle_RTCM3_RX_MSM(word16 msgid, const byte * const p_data, word16 data_le
 
 
 #ifdef _POSTPROC
-	SendMessgeOBSToShow(pSlaveBuf, glStruUart->comid); //Show Obs
+	////////SendMessgeOBSToShow(pSlaveBuf, glStruUart->comid); //Show Obs
 #endif
 
 	return;
