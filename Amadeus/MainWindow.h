@@ -14,5 +14,8 @@ private:
 	Ui::MainWindowClass ui;
 
 private:
-	QDialog *createDialogStationManege(MainWindow *const pWindow);
+	void createDialogStationManege();
+
+private slots:
+	void on_actionNetSet_triggered();
 };

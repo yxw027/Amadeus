@@ -2,7 +2,7 @@
 #include "DialogStationNetCreate.h"
 #include "globalfunc.h"
 #include <QMenu>
-#include <QMessageBox>
+//#include <QMessageBox>
 
 // 解决QT在VS里中文乱码问题
 #ifdef WIN32
