@@ -19,8 +19,11 @@ private:
 
 private:
 	bool cntflag;
-	QString	mv_DBPath;
-	QString	mv_DBUser;
-	QString	mv_DBname;
-	QString	mv_DBPassword;
+	QString	DBPath;
+	QString	DBUser;
+	QString	DBname;
+	QString	DBPassword;
+
+private slots:
+	void on_pushButtonTestConnect_clicked();
 };

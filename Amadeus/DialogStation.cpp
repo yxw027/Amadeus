@@ -2,7 +2,6 @@
 #include "DialogStationNetCreate.h"
 #include "globalfunc.h"
 #include <QMenu>
-//#include <QMessageBox>
 
 // 解决QT在VS里中文乱码问题
 #ifdef WIN32
@@ -74,10 +73,8 @@ void DialogStation::addNetItem(QTreeWidgetItem *parItem)
 	parItem->addChild(item); 
 }
 
-void DialogStation::on_treeWidget_customContextMenuRequested(const QPoint &trigPos)
+void DialogStation::on_treeWidget_customContextMenuRequested()
 {
-	Q_UNUSED(trigPos);
-
 	ShowMenuStation();
 }
 

@@ -30,6 +30,6 @@ private:
 	void    ShowMenuStation();	// 弹出右键管理菜单
 
 private slots:
-	void on_treeWidget_customContextMenuRequested(const QPoint &trigPos);   //弹出菜单
+	void on_treeWidget_customContextMenuRequested();   //弹出菜单
 	void on_actionNetCreate_triggered();
 };

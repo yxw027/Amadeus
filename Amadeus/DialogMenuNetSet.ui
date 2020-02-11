@@ -6,15 +6,43 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>378</width>
-    <height>341</height>
+    <width>333</width>
+    <height>304</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>DialogMenuNetSet</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="0" column="0" colspan="3">
+   <item row="1" column="0">
+    <widget class="QLabel" name="labelTips">
+     <property name="text">
+      <string>提示:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QPushButton" name="pushButtonTestConnect">
+     <property name="text">
+      <string>测试连接</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <widget class="QPushButton" name="pushButtonOK">
+     <property name="text">
+      <string>确定</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="3">
+    <widget class="QPushButton" name="pushButtonCancel">
+     <property name="text">
+      <string>取消</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="4">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>数据库配置</string>
@@ -75,27 +103,6 @@
        <widget class="QLineEdit" name="lineEditDBPassword"/>
       </item>
      </layout>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QPushButton" name="pushButtonTestConnect">
-     <property name="text">
-      <string>测试连接</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QPushButton" name="pushButtonOK">
-     <property name="text">
-      <string>确定</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="2">
-    <widget class="QPushButton" name="pushButtonCancel">
-     <property name="text">
-      <string>取消</string>
-     </property>
     </widget>
    </item>
   </layout>

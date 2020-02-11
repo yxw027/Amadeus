@@ -1,14 +1,19 @@
 #include "DialogMenuNetSet.h"
 #include "msql.h"
 
+// 解决QT在VS里中文乱码问题
+#ifdef WIN32
+#pragma execution_character_set("utf-8")
+#endif
+
 msql m_sql;
 
 DialogMenuNetSet::DialogMenuNetSet(QWidget *parent)
 	: QDialog(parent)
-	, mv_DBPath("")
-	, mv_DBUser("")
-	, mv_DBPassword("")
-	, mv_DBname("")
+	, DBPath("")
+	, DBUser("")
+	, DBPassword("")
+	, DBname("")
 {
 	ui.setupUi(this);
 	initDialog();
@@ -42,4 +47,35 @@ bool DialogMenuNetSet::initDialog()
 		ui.comboBoxDBName->setEditable(false);
 	}
 	return true;  
+}
+
+void DialogMenuNetSet::on_pushButtonTestConnect_clicked()
+{
+	ui.labelTips->setText("正在连接……");
+	
+	// 读取最终设置参数
+	DBPath = ui.lineEditDBPath->text();
+	DBname = ui.comboBoxDBName->currentText();
+	DBUser = ui.lineEditDBUser->text();
+	DBPassword = ui.lineEditDBPassword->text();
+
+	msql sqltest;
+	if (sqltest.connect(DBPath, DBname, DBUser, DBPassword))
+	{
+		QStringList tblist;
+		int count = sqltest.gettblist(tblist);
+		//mc_BaseType.EnableWindow(cntflag = (0 == count ? FALSE : TRUE));
+		//mc_BaseType.ResetContent();  // clear control items
+		//for (int i = 0; i < count; i++)
+		//	mc_BaseType.InsertString(0, tblist.GetAt(i));
+		//if (mc_BaseType.GetCount()) {
+		//	mc_BaseType.SetCurSel(0);
+		//	mv_DBname = tblist.GetAt(0);
+		//}
+		ui.labelTips->setText("连接成功!");
+	}
+	else
+	{
+		ui.labelTips->setText("连接失败!"); 
+	}
 }
