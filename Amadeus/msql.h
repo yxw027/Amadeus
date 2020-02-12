@@ -15,6 +15,8 @@ public:
 	bool connect();
 	bool connect(QString IP, QString username, QString password);
 	bool connect(QString IP, QString dbname, QString username, QString password);
+	void savecfg();
+
 	int gettblist(QStringList& tblist);
 	int getlist(QString field, QStringList& list, QString cmd);
 
@@ -22,6 +24,10 @@ public:
 	QString getdbname();
 	QString getuser();
 	QString getpwd();
+	void setdbpath(QString arg);
+	void setdbname(QString arg);
+	void setuser(QString arg);
+	void setpwd(QString arg);
 
 private:
 	QSqlDatabase DB;

@@ -26,4 +26,5 @@ private:
 
 private slots:
 	void on_pushButtonTestConnect_clicked();
+	void on_pushButtonOK_clicked();
 };

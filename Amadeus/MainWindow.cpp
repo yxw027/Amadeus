@@ -53,54 +53,7 @@ void MainWindow::on_actionNetSet_triggered()
 
 	// 以模态方式显示对话框
 	int ret = dlgNetset->exec();
-	//if (ret = QDialog::Accepted)
-	//{
-	//	// OK按钮被按下
-	//	netinfo netifo;
-	//	netifo.NETNAME = dlgNetCreate->getWorkName();
-	//	netifo.WORKPATH = dlgNetCreate->getWorkDirection();
-	//	netifo.OWNER = dlgNetCreate->getWorker();
-	//	netifo.PINCHARGE = dlgNetCreate->getOrganization();
-	//	netifo.PHONE = dlgNetCreate->getPhoneNum();
-	//	netifo.EMAIL = dlgNetCreate->getPostalCode();
-	//	netifo.SLNSYS = dlgNetCreate->getProSystem();
-	//	netifo.SLNPHS = dlgNetCreate->getProFreq();
-	//	// 原程序在此处就没有处理静态解时长
-	//	//		netifo.SLNSES = dlgNetCreate->getProDuration();
-	//	netifo.BASENUM = 0;
-	//	netifo.BRDCTYPE = 0;
-	//	netifo.COLAT = 0.0;
-	//	netifo.COLON = 0.0;
-	//	netifo.ROVERNUM = 0;
-	//}
 
-	//// 检查子网是否已经存在，不存在则添加
-	////if (IDOK == NetAdd.DoModal() && !m_sql.netIsExist(NetAdd.mv_NetName))
-	//{
-	//	////////netinfo netifo;
-	//	////////netifo.NETNAME = NetAdd.mv_NetName;
-	//	////////netifo.SLNSYS = NetAdd.mv_slnsys;
-	//	////////netifo.SLNPHS = NetAdd.mv_slnphs;
-	//	////////netifo.EMAIL = NetAdd.mv_email;
-	//	////////netifo.OWNER = NetAdd.mv_Admin;
-	//	////////netifo.PHONE = NetAdd.mv_phone;
-	//	////////netifo.PINCHARGE = NetAdd.mv_Company;
-	//	////////netifo.WORKPATH = NetAdd.mv_WorkPath;
-	//	////////netifo.BASENUM = 0;
-	//	////////netifo.BRDCTYPE = 0;
-	//	////////netifo.COLAT = 0.0;
-	//	////////netifo.COLON = 0.0;
-	//	////////netifo.ROVERNUM = 0;
-	//	////////netifo.COMMENT = "";
-	//	//m_sql.insert_net2db(&netifo);
-	//	//UpdateTreeList();
-	//}
-	////else if (!NetAdd.mv_NetName.IsEmpty() && m_sql.netIsExist(NetAdd.mv_NetName))
-	////{
-	////	QMessageBox::information(this, "提示", "子网名称已存在，请勿重复添加！");
-	////	return;
-	////}
-
-	//// 删除对话框
+	// 删除对话框
 	delete dlgNetset;
 }

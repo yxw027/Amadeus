@@ -2,7 +2,6 @@
 #include <QTextBlock>
 #include <QTextStream>
 #include <QSqlQuery>
-#include <QMessageBox>
 
 msql::msql()
 {
@@ -82,6 +81,26 @@ bool msql::connect(QString IP, QString dbname, QString username, QString passwor
 		return false;
 }
 
+void msql::savecfg()
+{
+	QString filename = "..\\x64\\Debug\\sql.cfg";
+	QFile ifile(filename);
+	if (!ifile.open(QIODevice::WriteOnly | QIODevice::Text))
+	{
+		//sendmsginfo("Warning: .\\bin\\sql.cfg can not open!");
+		return;
+	}
+
+	QTextStream iStream(&ifile);
+	iStream << ("IP:" + dbpath + "\n");
+	iStream << ("DB:" + dbname + "\n");
+	iStream << ("USER:" + user + "\n");
+	iStream << ("PWD:" + pwd + "\n");
+	
+	ifile.close();
+	return;
+}
+
 int msql::gettblist(QStringList& tblist)
 {
 	getlist("NAME", tblist, "SELECT NAME FROM MASTER..SYSDATABASES ORDER BY NAME");
@@ -96,27 +115,25 @@ int msql::getlist(QString field, QStringList& list, QString cmd)
 	QSqlQuery query;
 	query.exec(cmd);
 
-	// query.size()始终等于-1，与SQL SERVER的驱动支持有关，故此处不使用该函数进行查询记录数的判断；
-	// 而原版本的m_sqlset->GetRecordCount()函数也统计不准确，故只进行非零判断，后续使用list.GetCount()准确统计；
-
-	//while (query.next())
+	// query.size()始终等于-1，与SQL SERVER的驱动有关，故此处不使用该函数判断是否查询到记录
+	// 而原版本的m_sqlset->GetRecordCount()函数也统计不准确，只用来判断是否查询到记录，后续使用list.GetCount()准确统计
+	// 统计查询到的记录数
+	int recordCnt = 0;
+	while (query.next())
 	{
-		QMessageBox::information(NULL, "Tips", query.value(0).toString());
+		recordCnt++;
 	}
+	if (recordCnt == 0)
+		return 0;
+		
+	// 从第一条记录开始处理
+	query.first();
+	do {
+		QString sitename = (query.value(field)).toString();
+		list.append(sitename);
+	} while (query.next());
 
-	return 0;
-
-
-
-	//m_sqlset->MoveFirst();
-	//while (!m_sqlset->adoEOF)
-	//{
-	//	QString sitename = m_sqlset->GetCollect((_variant_t)field);
-	//	list.Add(sitename);
-	//	m_sqlset->MoveNext();
-	//}
-	//m_sqlset->Close();
-	//return list.count();
+	return recordCnt;
 }
 
 QString msql::getdbpath()
@@ -137,4 +154,24 @@ QString  msql::getuser()
 QString msql::getpwd()
 {
 	return pwd;
+}
+
+void msql::setdbpath(QString arg)
+{
+	dbpath = arg;
+}
+
+void msql::setdbname(QString arg)
+{
+	dbname = arg;
+}
+
+void msql::setuser(QString arg)
+{
+	user = arg;
+}
+
+void msql::setpwd(QString arg)
+{
+	pwd = arg;
 }
