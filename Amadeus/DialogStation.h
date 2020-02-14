@@ -24,10 +24,12 @@ private:
 	//枚举类型，表示列号
 	enum    treeColNum { nodeName = 0, nodeState = 1 }; //目录树列的编号定义
 
-	void    iniTree();		// 目录树初始化
-	void	addRootNode();  // 添加根节点
-	void    addNetItem(QTreeWidgetItem *parItem);	// 添加一个目录节点
-	void    ShowMenuStation();	// 弹出右键管理菜单
+	void    iniTree();		// 初始化目录树
+	QTreeWidgetItem *	addRootNode();  // 添加根节点
+	QTreeWidgetItem *	addNetItem(QTreeWidgetItem *parItem, QString netname);		// 添加一个监测网节点
+	QTreeWidgetItem *	addStationItem(QTreeWidgetItem *parItem, QString stationname, QString stationtype);	// 添加一个监测站节点
+	void    updateTreeList();	// 读取数据库数据更新树节点
+	void    deleteAllChild();   // 删除根节点外的所有子节点
 
 private slots:
 	void on_treeWidget_customContextMenuRequested();   //弹出菜单

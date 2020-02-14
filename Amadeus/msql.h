@@ -3,6 +3,14 @@
 #include <QObject>
 #include <QSqlDatabase>
 
+const QString NET_CFG_TB = "Config_DetectNet";
+const QString SITE_CFG_TB = "Config_DetectStation";
+
+const QString NETNAME_TB = "DetectNetName";
+const QString SITENAME_TB = "DetectStationName";
+
+enum connectState { StateOpen, StateClose };
+
 class msql : public QObject
 {
 	Q_OBJECT
@@ -16,9 +24,13 @@ public:
 	bool connect(QString IP, QString username, QString password);
 	bool connect(QString IP, QString dbname, QString username, QString password);
 	void savecfg();
+	void close();
 
 	int gettblist(QStringList& tblist);
 	int getlist(QString field, QStringList& list, QString cmd);
+	int getnetlist(QStringList& netlist);
+	int getsitelist(QString netname, QStringList& sitelist);
+	int getsiteinfo(QString sitename, QStringList& infolist, int flag = 0);
 
 	QString getdbpath();
 	QString getdbname();
@@ -29,11 +41,16 @@ public:
 	void setuser(QString arg);
 	void setpwd(QString arg);
 
+	int getstate();
+
 private:
 	QSqlDatabase DB;
-	//long	state;
 	QString dbpath;  // 服务器名称
 	QString dbname;  // 数据库名称
 	QString user;    // 登陆用户名
 	QString pwd;	 // 登陆密码
+
+	connectState state;	// 数据库连接状态标志位
 };
+
+extern msql m_sql;

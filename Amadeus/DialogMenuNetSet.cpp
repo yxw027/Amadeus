@@ -89,6 +89,5 @@ void DialogMenuNetSet::on_pushButtonOK_clicked()
 	m_sql.setdbname(cntflag == true ? (DBname.isEmpty() ? "" : DBname) : "");
 	m_sql.setuser(cntflag == true ? DBUser : "");
 	m_sql.setpwd(cntflag == true ? DBPassword : "");
-
 	m_sql.savecfg();
 }
