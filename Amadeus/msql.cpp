@@ -206,7 +206,7 @@ void msql::insert_net2db(const netinfo* pnet)
 	QString cstr;
 	cstr.sprintf("INSERT INTO [%s].[DBO].[%s] ([DetectNetName] ,[filepath] ,[SLNSYS] ,[SLNPHS] ,[owner] ,[PINCHARGE] ,[phone] ,[email] ,[Clatitude] ,[Clongitude])\
      VALUES ('%s','%s',%d,%d,'%s','%s','%s','%s',%18.6f,%18.6f)",
-		dbname, NET_CFG_TB, pnet->NETNAME, pnet->WORKPATH, pnet->SLNSYS, pnet->SLNPHS, pnet->OWNER, pnet->PINCHARGE, pnet->PHONE, pnet->EMAIL).toUtf8().data(), 0.0, 0.0);
+		dbname.toUtf8().data(), NET_CFG_TB.toUtf8().data(), (pnet->NETNAME).toUtf8().data(), (pnet->WORKPATH).toUtf8().data(), pnet->SLNSYS, pnet->SLNPHS, (pnet->OWNER).toUtf8().data(), (pnet->PINCHARGE).toUtf8().data(), (pnet->PHONE).toUtf8().data(), (pnet->EMAIL).toUtf8().data(), 0.0, 0.0);
 	//try {
 	QMessageBox::information(NULL,"Tips", cstr);
 		QSqlQuery query;
