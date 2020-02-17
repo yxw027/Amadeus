@@ -36,9 +36,9 @@
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>配置</string>
+     <string>设置</string>
     </property>
-    <addaction name="actionNetSet"/>
+    <addaction name="actionDBSet"/>
    </widget>
    <addaction name="menu"/>
   </widget>
@@ -51,9 +51,12 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionNetSet">
+  <action name="actionDBSet">
    <property name="text">
-    <string>网络配置</string>
+    <string>数据库设置</string>
+   </property>
+   <property name="toolTip">
+    <string>数据库设置</string>
    </property>
   </action>
  </widget>

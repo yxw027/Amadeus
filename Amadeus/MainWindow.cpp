@@ -36,7 +36,7 @@ void MainWindow::createDialogStationManege()
 }
 
 // 网络配置菜单槽函数
-void MainWindow::on_actionNetSet_triggered()
+void MainWindow::on_actionDBSet_triggered()
 {
 	QMessageBox::information(this, "提示", "请确认测站数据未连接或子网未解算！");
 

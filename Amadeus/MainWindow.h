@@ -17,5 +17,5 @@ private:
 	void createDialogStationManege();
 
 private slots:
-	void on_actionNetSet_triggered();
+	void on_actionDBSet_triggered();
 };
