@@ -60,7 +60,7 @@ QTreeWidgetItem * DialogStation::addRootNode()
 }
 
 // 添加一个监测网络节点
-QTreeWidgetItem * DialogStation::addNetItem(QTreeWidgetItem *parItem, QString netname)
+QTreeWidgetItem * DialogStation::addNetNode(QTreeWidgetItem *parItem, QString netname)
 {
 	// 设置ICON的图标
 	QIcon icon(":/icons/Resources/obsNet.bmp");
@@ -69,7 +69,7 @@ QTreeWidgetItem * DialogStation::addNetItem(QTreeWidgetItem *parItem, QString ne
 	QTreeWidgetItem *item = new QTreeWidgetItem(DialogStation::TREE_NOTE_CORSNAME);
 	item->setIcon(nodeName, icon);
 	item->setText(nodeName, netname);
-	item->setText(nodeState, "type=TREE_NOTE_CORSNAME");
+	item->setText(nodeState, "");
 	item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled );
 	item->setData(nodeName, Qt::UserRole, QVariant(""));
 
@@ -80,7 +80,7 @@ QTreeWidgetItem * DialogStation::addNetItem(QTreeWidgetItem *parItem, QString ne
 }
 
 // 添加一个监测站节点
-QTreeWidgetItem * DialogStation::addStationItem(QTreeWidgetItem *parItem, QString stationname, QString stationtype)
+QTreeWidgetItem * DialogStation::addStationNode(QTreeWidgetItem *parItem, QString stationname, QString stationtype)
 {
 	// 设置ICON的图标
 	QIcon icon;
@@ -97,7 +97,7 @@ QTreeWidgetItem * DialogStation::addStationItem(QTreeWidgetItem *parItem, QStrin
 	QTreeWidgetItem *item = new QTreeWidgetItem(DialogStation::TREE_NOTE_MPNAME);
 	item->setIcon(nodeName, icon);
 	item->setText(nodeName, stationname);
-	item->setText(nodeState, "type=TREE_NOTE_MPNAME");
+	item->setText(nodeState, "");
 	item->setFlags(Qt::ItemIsSelectable | Qt::ItemIsUserCheckable | Qt::ItemIsEnabled);
 	item->setData(nodeName, Qt::UserRole, QVariant(""));
 
@@ -131,7 +131,7 @@ void DialogStation::updateTreeList()
 				for (int netIndex = 0; netIndex < netsize; netIndex++)
 				{
 					netName = netList.at(netIndex);
-					QTreeWidgetItem *netNode = addNetItem(rootNode, netName);
+					QTreeWidgetItem *netNode = addNetNode(rootNode, netName);
 
 					// 挂载点列表筛选
 					QStringList sitelist;
@@ -145,7 +145,7 @@ void DialogStation::updateTreeList()
 
 						QString labelname = SiteInfo.at(2);
 						QString stationtype = SiteInfo.at(3);
-						addStationItem(netNode, labelname.toUpper(), stationtype);
+						addStationNode(netNode, labelname.toUpper(), stationtype);
 					}
 					ui.treeWidget->expandAll();
 #ifdef VER_OPEN
@@ -201,20 +201,20 @@ void DialogStation::on_treeWidget_customContextMenuRequested()
 	// 创建菜单
 	QMenu* menuList = new QMenu(this);
 
-	int currentItemType = ui.treeWidget->currentItem()->type();
+	int itemType = ui.treeWidget->currentItem()->type();
 
-	switch (currentItemType)
+	switch (itemType)
 	{
 	case TREE_NOTE_CORSTITLE:
 		// 添加Actions创建菜单项
 		menuList->addAction(ui.actionNetCreate);
-		//// 添加分隔条
-		// menuList->addSeparator();
 		break;
 	case TREE_NOTE_CORSNAME:
 		//menuList->addAction(ui.action_Connect);
 		//menuList->addAction(ui.action_Disconnect);
 		//menuList->addAction(ui.action_Disconnect);
+		//// 添加分隔条
+		// menuList->addSeparator();
 		break;
 	case TREE_NOTE_MPNAME:
 		break;
@@ -234,11 +234,27 @@ void DialogStation::on_actionNetCreate_triggered()
 	Qt::WindowFlags flags = dlgNetCreate->windowFlags();
 	dlgNetCreate->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
 
+	//HTREEITEM hChild = m_wndFileView.GetChildItem(m_wndFileView.GetSelectedItem());
+	//while (hChild) {
+	//	CString NetName = m_wndFileView.GetItemText(hChild);
+	//	if (theApp.m_NetList.find(NetName) != theApp.m_NetList.end() && theApp.m_NetList.at(NetName)->m_runflag) {
+	//		AfxMessageBox("请先停止子网解算！");
+	//		return;
+	//	}
+	//	hChild = m_wndFileView.GetNextSiblingItem(hChild);
+	//}
+
 	// 以模态方式显示对话框
 	int ret = dlgNetCreate->exec();
 	if (ret = QDialog::Accepted)
 	{
-		// OK按钮被按下
+		if (m_sql.netIsExist(dlgNetCreate->getWorkName()))
+		{
+			QMessageBox::information(NULL,"提示：","子网已存在，请勿重复添加");
+			return;
+		}
+			
+			
 		netinfo netifo;
 		netifo.NETNAME = dlgNetCreate->getWorkName();
 		netifo.WORKPATH = dlgNetCreate->getWorkDirection();
@@ -255,6 +271,8 @@ void DialogStation::on_actionNetCreate_triggered()
 		netifo.COLAT = 0.0;
 		netifo.COLON = 0.0;
 		netifo.ROVERNUM = 0;
+		m_sql.insert_net2db(&netifo);
+		updateTreeList();
 	}
 
 

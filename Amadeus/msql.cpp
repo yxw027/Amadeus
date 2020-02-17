@@ -2,6 +2,8 @@
 #include <QTextBlock>
 #include <QTextStream>
 #include <QSqlQuery>
+#include <QMessageBox>
+
 
 msql::msql()
 {
@@ -144,16 +146,11 @@ int msql::getlist(QString field, QStringList& list, QString cmd)
 	// query.size()始终等于-1，与SQL SERVER的驱动有关，故此处不使用该函数判断是否查询到记录
 	// 而原版本的m_sqlset->GetRecordCount()函数也统计不准确，只用来判断是否查询到记录，后续使用list.GetCount()准确统计
 	// 统计查询到的记录数
-	int recordCnt = 0;
-	while (query.next())
-	{
-		recordCnt++;
-	}
+	int recordCnt = countQueryRecord(query);
 	if (recordCnt == 0)
 		return 0;
 		
 	// 从第一条记录开始处理
-	query.first();
 	do {
 		QString sitename = (query.value(field)).toString();
 		list.append(sitename);
@@ -171,16 +168,8 @@ int msql::getsiteinfo(QString sitename, QStringList& infolist, int flag)
 	{
 		QSqlQuery query;
 		query.exec(cstr);
-
-		int recordCnt = 0;
-		while (query.next())
-		{
-			recordCnt++;
-		}	
+		int recordCnt = countQueryRecord(query);
 		if (recordCnt == 0) return 0;
-
-		// 从第一条记录开始处理
-		query.first();
 
 		infolist.append(cstr = (query.value("DetectStationID")).toString());
 		infolist.append(cstr = (query.value("DetectStationName")).toString());
@@ -201,6 +190,60 @@ int msql::getsiteinfo(QString sitename, QStringList& infolist, int flag)
 	//{
 	//	sendsqlmsg(e);
 	//}
+}
+
+bool msql::netIsExist(QString netname)
+{
+	return fieldcheck(NETNAME_TB, NET_CFG_TB, netname);
+}
+
+void msql::insert_net2db(const netinfo* pnet)
+{
+	Q_ASSERT(pnet != NULL);
+
+	// QString.arg()不方便拼浮点数，故采用QString::sprintf();
+	// 该函数输入为char *，要用QString::toUtf8().data()将QStinrg时转化为char *;
+	QString cstr;
+	cstr.sprintf("INSERT INTO [%s].[DBO].[%s] ([DetectNetName] ,[filepath] ,[SLNSYS] ,[SLNPHS] ,[owner] ,[PINCHARGE] ,[phone] ,[email] ,[Clatitude] ,[Clongitude])\
+     VALUES ('%s','%s',%d,%d,'%s','%s','%s','%s',%18.6f,%18.6f)",
+		dbname, NET_CFG_TB, pnet->NETNAME, pnet->WORKPATH, pnet->SLNSYS, pnet->SLNPHS, pnet->OWNER, pnet->PINCHARGE, pnet->PHONE, pnet->EMAIL).toUtf8().data(), 0.0, 0.0);
+	//try {
+	QMessageBox::information(NULL,"Tips", cstr);
+		QSqlQuery query;
+		query.exec(cstr);
+	//}
+	//catch (_com_error &e)
+	//{
+	//	sendsqlmsg(e);
+	//}
+}
+
+bool msql::fieldcheck(QString indx_field, QString obj_field, QString val)
+{
+	Q_ASSERT(!val.isEmpty());
+	QString cstr = QString("select %1 from %2 where %3='%4'").arg(indx_field, obj_field, indx_field, val);
+	//try
+	{
+		QSqlQuery query;
+		query.exec(cstr);
+		int recordCnt = countQueryRecord(query);
+		return (recordCnt > 0) ? true : false;
+	}
+	//catch (_com_error &e)
+	//{
+	//	sendsqlmsg(e);
+	//}
+}
+
+int msql::countQueryRecord(QSqlQuery query)
+{
+	int count = 0;
+	while (query.next())
+	{
+		count++;
+	}
+	query.first();
+	return count;
 }
 
 QString msql::getdbpath()

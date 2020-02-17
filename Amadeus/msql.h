@@ -1,5 +1,6 @@
 #pragma once
 
+#include "globalfunc.h"
 #include <QObject>
 #include <QSqlDatabase>
 
@@ -32,6 +33,9 @@ public:
 	int getsitelist(QString netname, QStringList& sitelist);
 	int getsiteinfo(QString sitename, QStringList& infolist, int flag = 0);
 
+	bool netIsExist(QString netname);
+	void insert_net2db(const netinfo* pnet);
+
 	QString getdbpath();
 	QString getdbname();
 	QString getuser();
@@ -42,6 +46,10 @@ public:
 	void setpwd(QString arg);
 
 	int getstate();
+
+private:
+	bool fieldcheck(QString indx_field, QString obj_field, QString val);
+	int countQueryRecord(QSqlQuery query);
 
 private:
 	QSqlDatabase DB;

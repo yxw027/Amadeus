@@ -26,8 +26,8 @@ private:
 
 	void    iniTree();		// 初始化目录树
 	QTreeWidgetItem *	addRootNode();  // 添加根节点
-	QTreeWidgetItem *	addNetItem(QTreeWidgetItem *parItem, QString netname);		// 添加一个监测网节点
-	QTreeWidgetItem *	addStationItem(QTreeWidgetItem *parItem, QString stationname, QString stationtype);	// 添加一个监测站节点
+	QTreeWidgetItem *	addNetNode(QTreeWidgetItem *parItem, QString netname);		// 添加一个监测网节点
+	QTreeWidgetItem *	addStationNode(QTreeWidgetItem *parItem, QString stationname, QString stationtype);	// 添加一个监测站节点
 	void    updateTreeList();	// 读取数据库数据更新树节点
 	void    deleteAllChild();   // 删除根节点外的所有子节点
 

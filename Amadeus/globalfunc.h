@@ -33,7 +33,8 @@
 	//	_shwdpos	delpos;	// delx y z r of position
 	//};
 
-	typedef struct netinfo
+//	typedef struct netinfo
+	struct netinfo
 	{
 		QString	NETNAME;
 		QString	WORKPATH; // workpath
