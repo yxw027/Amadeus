@@ -89,7 +89,7 @@
     <ClCompile Include="Communication\NtripSocket.cpp" />
     <ClCompile Include="DialogMenuNetSet.cpp" />
     <ClCompile Include="DialogStation.cpp" />
-    <ClCompile Include="DialogStationNetCreate.cpp" />
+    <ClCompile Include="DialogStationNetAdd.cpp" />
     <ClCompile Include="DialogStationSiteAdd.cpp" />
     <ClCompile Include="EBAS_V_UI_R.cpp" />
     <ClCompile Include="main.cpp" />
@@ -130,9 +130,9 @@
     <QtMoc Include="MainWindow.h" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="DialogMenuNetSet.ui" />
+    <QtUic Include="DialogMenuDBSet.ui" />
     <QtUic Include="DialogStation.ui" />
-    <QtUic Include="DialogStationNetCreate.ui" />
+    <QtUic Include="DialogStationNetAdd.ui" />
     <QtUic Include="DialogStationSiteAdd.ui" />
     <QtUic Include="MainWindow.ui" />
   </ItemGroup>
@@ -146,8 +146,8 @@
     <ClInclude Include="Communication\NtripClient.h" />
     <ClInclude Include="Communication\NtripSocket.h" />
     <QtMoc Include="EBAS_V_UI_R.h" />
-    <QtMoc Include="DialogStationNetCreate.h" />
-    <QtMoc Include="DialogMenuNetSet.h" />
+    <QtMoc Include="DialogStationNetAdd.h" />
+    <QtMoc Include="DialogMenuDBSet.h" />
     <QtMoc Include="DialogStationSiteAdd.h" />
     <ClInclude Include="globalfunc.h" />
     <QtMoc Include="msql.h" />

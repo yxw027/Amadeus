@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DialogStationNetCreate</class>
- <widget class="QDialog" name="DialogStationNetCreate">
+ <class>DialogStationNetAdd</class>
+ <widget class="QDialog" name="DialogStationNetAdd">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>DialogStationNetCreate</string>
+   <string>DialogStationNetAdd</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0" colspan="2">
@@ -208,7 +208,7 @@
   <connection>
    <sender>pushButtonOK</sender>
    <signal>clicked()</signal>
-   <receiver>DialogStationNetCreate</receiver>
+   <receiver>DialogStationNetAdd</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -224,7 +224,7 @@
   <connection>
    <sender>pushButtonCancel</sender>
    <signal>clicked()</signal>
-   <receiver>DialogStationNetCreate</receiver>
+   <receiver>DialogStationNetAdd</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

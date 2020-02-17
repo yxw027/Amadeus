@@ -145,9 +145,6 @@
     <ClCompile Include="PVT\TimeProc.c">
       <Filter>Source Files\PVT</Filter>
     </ClCompile>
-    <ClCompile Include="DialogStationNetCreate.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DialogMenuNetSet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -155,6 +152,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DialogStationSiteAdd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogStationNetAdd.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -168,16 +168,16 @@
     <QtMoc Include="EBAS_V_UI_R.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="DialogStationNetCreate.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="DialogMenuNetSet.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="msql.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="DialogStationSiteAdd.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="DialogStationNetAdd.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="DialogMenuDBSet.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
@@ -188,13 +188,13 @@
     <QtUic Include="DialogStation.ui">
       <Filter>Form Files</Filter>
     </QtUic>
-    <QtUic Include="DialogStationNetCreate.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
-    <QtUic Include="DialogMenuNetSet.ui">
-      <Filter>Form Files</Filter>
-    </QtUic>
     <QtUic Include="DialogStationSiteAdd.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="DialogStationNetAdd.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="DialogMenuDBSet.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

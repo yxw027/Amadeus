@@ -1,68 +1,68 @@
-#include "DialogStationNetCreate.h"
+#include "DialogStationNetAdd.h"
 #include <QFileDialog>
 #include "./Platform/utf8.h"
 
 
-DialogStationNetCreate::DialogStationNetCreate(QWidget *parent)
+DialogStationNetAdd::DialogStationNetAdd(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
 }
 
-DialogStationNetCreate::~DialogStationNetCreate()
+DialogStationNetAdd::~DialogStationNetAdd()
 {
 }
 
 
 // 参数配置函数
-QString DialogStationNetCreate::getWorkName()
+QString DialogStationNetAdd::getWorkName()
 {
 	return ui.lineEditWorkName->text();
 }
 
-QString DialogStationNetCreate::getWorkDirection()
+QString DialogStationNetAdd::getWorkDirection()
 {
 	return ui.lineEditWorkDirection->text();
 }
 
-QString DialogStationNetCreate::getWorker()
+QString DialogStationNetAdd::getWorker()
 {
 	return ui.lineEditWorker->text();
 }
 
-QString DialogStationNetCreate::getOrganization()
+QString DialogStationNetAdd::getOrganization()
 {
 	return ui.lineEditOrganization->text();
 }
 
-QString DialogStationNetCreate::getPhoneNum()
+QString DialogStationNetAdd::getPhoneNum()
 {
 	return ui.lineEditPhoneNum->text();
 }
 
-QString DialogStationNetCreate::getPostalCode()
+QString DialogStationNetAdd::getPostalCode()
 {
 	return ui.lineEditPostalCode->text();
 }
 
-int DialogStationNetCreate::getProSystem()
+int DialogStationNetAdd::getProSystem()
 {
 	return ui.comboBoxProSystem->currentIndex();
 }
 
-int DialogStationNetCreate::getProFreq()
+int DialogStationNetAdd::getProFreq()
 {
 	return ui.comboBoxProFreq->currentIndex();
 }
 
-int DialogStationNetCreate::getProDuration()
+int DialogStationNetAdd::getProDuration()
 {
 	return ui.comboBoxProDuration->currentIndex();
 }
 
 
 // 路径选择按钮槽函数
-void DialogStationNetCreate::on_pushButtonDirSelect_clicked()
+void DialogStationNetAdd::on_pushButtonDirSelect_clicked()
 {
 	QString curPath = QCoreApplication::applicationDirPath();
 	QString dlgTitle = "选择一个目录";

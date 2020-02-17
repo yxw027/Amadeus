@@ -1,5 +1,5 @@
 #include "DialogStation.h"
-#include "DialogStationNetCreate.h"
+#include "DialogStationNetAdd.h"
 #include "DialogStationSiteAdd.h"
 #include "msql.h"
 #include "./Platform/utf8.h"
@@ -235,37 +235,34 @@ void DialogStation::on_actionNetAdd_triggered()
 	//}
 
 	// 创建对话框
-	DialogStationNetCreate *dlgNetCreate = new DialogStationNetCreate(this);
+	DialogStationNetAdd *dlgNetAdd = new DialogStationNetAdd(this);
 
 	// 设置对话框大小为固定
-	Qt::WindowFlags flags = dlgNetCreate->windowFlags();
-	dlgNetCreate->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
+	Qt::WindowFlags flags = dlgNetAdd->windowFlags();
+	dlgNetAdd->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
 
 	// 以模态方式显示对话框
-	int ret = dlgNetCreate->exec();
+	int ret = dlgNetAdd->exec();
 	if (ret = QDialog::Accepted)
 	{
-		if ((dlgNetCreate->getWorkName()).isEmpty())
-		{
-			QMessageBox::information(NULL, "提示：", "子网名称不能为空");
+		if ((dlgNetAdd->getWorkName()).isEmpty())
 			return;
-		}
 
-		if (m_sql.netIsExist(dlgNetCreate->getWorkName()))
+		if (m_sql.netIsExist(dlgNetAdd->getWorkName()))
 		{
 			QMessageBox::information(NULL, "提示：", "子网已存在，请勿重复添加");
 			return;
 		}
 
 		netinfo netifo;
-		netifo.NETNAME = dlgNetCreate->getWorkName();
-		netifo.WORKPATH = dlgNetCreate->getWorkDirection();
-		netifo.OWNER = dlgNetCreate->getWorker();
-		netifo.PINCHARGE = dlgNetCreate->getOrganization();
-		netifo.PHONE = dlgNetCreate->getPhoneNum();
-		netifo.EMAIL = dlgNetCreate->getPostalCode();
-		netifo.SLNSYS = dlgNetCreate->getProSystem();
-		netifo.SLNPHS = dlgNetCreate->getProFreq();
+		netifo.NETNAME = dlgNetAdd->getWorkName();
+		netifo.WORKPATH = dlgNetAdd->getWorkDirection();
+		netifo.OWNER = dlgNetAdd->getWorker();
+		netifo.PINCHARGE = dlgNetAdd->getOrganization();
+		netifo.PHONE = dlgNetAdd->getPhoneNum();
+		netifo.EMAIL = dlgNetAdd->getPostalCode();
+		netifo.SLNSYS = dlgNetAdd->getProSystem();
+		netifo.SLNPHS = dlgNetAdd->getProFreq();
 		// 原程序在此处就没有处理静态解时长
 		//		netifo.SLNSES = dlgNetCreate->getProDuration();
 		netifo.BASENUM = 0;
@@ -278,7 +275,7 @@ void DialogStation::on_actionNetAdd_triggered()
 	}
 
 	// 删除对话框
-	delete dlgNetCreate;
+	delete dlgNetAdd;
 }
 
 void DialogStation::on_actionSiteAdd_triggered()

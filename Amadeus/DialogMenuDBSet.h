@@ -1,18 +1,18 @@
 #pragma once
 
 #include <QDialog>
-#include "ui_DialogMenuNetSet.h"
+#include "ui_DialogMenuDBSet.h"
 
-class DialogMenuNetSet : public QDialog
+class DialogMenuDBSet : public QDialog
 {
 	Q_OBJECT
 
 public:
-	DialogMenuNetSet(QWidget *parent = Q_NULLPTR);
-	~DialogMenuNetSet();
+	DialogMenuDBSet(QWidget *parent = Q_NULLPTR);
+	~DialogMenuDBSet();
 
 private:
-	Ui::DialogMenuNetSet ui;
+	Ui::DialogMenuDBSet ui;
 
 private:
 	bool initDialog();

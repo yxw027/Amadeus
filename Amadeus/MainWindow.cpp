@@ -1,7 +1,7 @@
 #include "MainWindow.h"
 #include "DialogStation.h"
 #include "qdockwidget.h"
-#include "DialogMenuNetSet.h"
+#include "DialogMenuDBSet.h"
 #include <QMessageBox>
 #include "./Platform/utf8.h"
 
@@ -41,15 +41,15 @@ void MainWindow::on_actionNetSet_triggered()
 	QMessageBox::information(this, "提示", "请确认测站数据未连接或子网未解算！");
 
 	// 创建对话框
-	DialogMenuNetSet *dlgNetset = new DialogMenuNetSet(this);
+	DialogMenuDBSet *dlgDBSet = new DialogMenuDBSet(this);
 
 	// 设置对话框大小为固定
-	Qt::WindowFlags flags = dlgNetset->windowFlags();
-	dlgNetset->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
+	Qt::WindowFlags flags = dlgDBSet->windowFlags();
+	dlgDBSet->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
 
 	// 以模态方式显示对话框
-	int ret = dlgNetset->exec();
+	int ret = dlgDBSet->exec();
 
 	// 删除对话框
-	delete dlgNetset;
+	delete dlgDBSet;
 }

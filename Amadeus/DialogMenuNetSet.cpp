@@ -1,10 +1,10 @@
-#include "DialogMenuNetSet.h"
+#include "DialogMenuDBSet.h"
 #include "msql.h"
 #include "./Platform/utf8.h"
 
 msql m_sql;
 
-DialogMenuNetSet::DialogMenuNetSet(QWidget *parent)
+DialogMenuDBSet::DialogMenuDBSet(QWidget *parent)
 	: QDialog(parent)
 	, DBPath("")
 	, DBUser("")
@@ -15,11 +15,11 @@ DialogMenuNetSet::DialogMenuNetSet(QWidget *parent)
 	initDialog();
 }
 
-DialogMenuNetSet::~DialogMenuNetSet()
+DialogMenuDBSet::~DialogMenuDBSet()
 {
 }
 
-bool DialogMenuNetSet::initDialog()
+bool DialogMenuDBSet::initDialog()
 {
 	cntflag = false;
 	ui.comboBoxDBType->addItem("SQL Server2008");
@@ -45,7 +45,7 @@ bool DialogMenuNetSet::initDialog()
 	return true;  
 }
 
-void DialogMenuNetSet::on_pushButtonTestConnect_clicked()
+void DialogMenuDBSet::on_pushButtonTestConnect_clicked()
 {
 	ui.labelTips->setText("正在连接……");
 	
@@ -76,7 +76,7 @@ void DialogMenuNetSet::on_pushButtonTestConnect_clicked()
 	}
 }
 
-void DialogMenuNetSet::on_pushButtonOK_clicked()
+void DialogMenuDBSet::on_pushButtonOK_clicked()
 {
 	// 读取设置参数,旧版程序在该布仅对数据库名进行读取设置，其他参数保持之前设置不变
 	DBname = ui.comboBoxDBName->currentText();
