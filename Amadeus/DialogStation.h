@@ -32,6 +32,7 @@ private:
 	void    deleteAllChild();   // 删除根节点外的所有子节点
 
 private slots:
-	void on_treeWidget_customContextMenuRequested();   //弹出菜单
+	void on_treeWidget_customContextMenuRequested();
 	void on_actionNetCreate_triggered();
+	void on_actionSiteAdd_triggered();
 };

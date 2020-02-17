@@ -1,6 +1,6 @@
 #include "DialogStation.h"
 #include "DialogStationNetCreate.h"
-#include "globalfunc.h"
+#include "DialogStationSiteAdd.h"
 #include "msql.h"
 #include <QMenu>
 #include <QMessageBox>
@@ -128,12 +128,12 @@ void DialogStation::updateTreeList()
 				m_sql.connect();
 				m_sql.getnetlist(netList);
 				int netsize = netList.count();
+
+				// 为所有解算子网节点添加测站节点
 				for (int netIndex = 0; netIndex < netsize; netIndex++)
 				{
 					netName = netList.at(netIndex);
 					QTreeWidgetItem *netNode = addNetNode(rootNode, netName);
-
-					// 挂载点列表筛选
 					QStringList sitelist;
 					m_sql.getsitelist(netName, sitelist);
 					int MPsize = sitelist.count();
@@ -198,22 +198,20 @@ void DialogStation::deleteAllChild()
 
 void DialogStation::on_treeWidget_customContextMenuRequested()
 {
-	// 创建菜单
+	// 创建右键弹出菜单
 	QMenu* menuList = new QMenu(this);
 
+	// 创建菜单项Action
 	int itemType = ui.treeWidget->currentItem()->type();
-
 	switch (itemType)
 	{
 	case TREE_NOTE_CORSTITLE:
-		// 添加Actions创建菜单项
 		menuList->addAction(ui.actionNetCreate);
 		break;
 	case TREE_NOTE_CORSNAME:
-		//menuList->addAction(ui.action_Connect);
+		menuList->addAction(ui.actionSiteAdd);
 		//menuList->addAction(ui.action_Disconnect);
 		//menuList->addAction(ui.action_Disconnect);
-		//// 添加分隔条
 		// menuList->addSeparator();
 		break;
 	case TREE_NOTE_MPNAME:
@@ -221,7 +219,11 @@ void DialogStation::on_treeWidget_customContextMenuRequested()
 	default:
 		break;
 	}
+
+	// 显示菜单项 
 	menuList->exec(QCursor::pos());
+
+	// 删除菜单项
 	delete menuList; 
 }
 
@@ -244,42 +246,23 @@ void DialogStation::on_actionNetCreate_triggered()
 	//	hChild = m_wndFileView.GetNextSiblingItem(hChild);
 	//}
 
-	// 以模态方式显示对话框
 	int ret = dlgNetCreate->exec();
-	if (ret = QDialog::Accepted)
-	{
-		if ((dlgNetCreate->getWorkName()).isEmpty())
-		{
-			QMessageBox::information(NULL, "提示：", "子网名称不能为空");
-			return;
-		}
-
-		if (m_sql.netIsExist(dlgNetCreate->getWorkName()))
-		{
-			QMessageBox::information(NULL,"提示：","子网已存在，请勿重复添加");
-			return;
-		}
-				
-		netinfo netifo;
-		netifo.NETNAME = dlgNetCreate->getWorkName();
-		netifo.WORKPATH = dlgNetCreate->getWorkDirection();
-		netifo.OWNER = dlgNetCreate->getWorker();
-		netifo.PINCHARGE = dlgNetCreate->getOrganization();
-		netifo.PHONE = dlgNetCreate->getPhoneNum();
-		netifo.EMAIL = dlgNetCreate->getPostalCode();
-		netifo.SLNSYS = dlgNetCreate->getProSystem();
-		netifo.SLNPHS = dlgNetCreate->getProFreq();
-		// 原程序在此处就没有处理静态解时长
-		//		netifo.SLNSES = dlgNetCreate->getProDuration();
-		netifo.BASENUM = 0;
-		netifo.BRDCTYPE = 0;
-		netifo.COLAT = 0.0;
-		netifo.COLON = 0.0;
-		netifo.ROVERNUM = 0;
-		m_sql.insert_net2db(&netifo);
-		updateTreeList();
-	}
-
-	// 删除对话框
 	delete dlgNetCreate;
+	updateTreeList();
+}
+
+void DialogStation::on_actionSiteAdd_triggered()
+{
+	// 创建对话框
+	DialogStationSiteAdd *dlgSiteAdd = new DialogStationSiteAdd(this);
+
+	// 设置对话框大小为固定
+	Qt::WindowFlags flags = dlgSiteAdd->windowFlags();
+	dlgSiteAdd->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
+
+	// 以模态方式显示对话框
+	int ret = dlgSiteAdd->exec();
+	
+	// 删除对话框
+	delete dlgSiteAdd;
 }
