@@ -1,13 +1,7 @@
 #include "DialogStationNetCreate.h"
 #include <QFileDialog>
-#include <QMessageBox>
-#include "msql.h"
-#include "globalfunc.h"
+#include "./Platform/utf8.h"
 
-// 解决QT在VS里中文乱码问题
-#ifdef WIN32
-#pragma execution_character_set("utf-8")
-#endif
 
 DialogStationNetCreate::DialogStationNetCreate(QWidget *parent)
 	: QDialog(parent)
@@ -19,6 +13,55 @@ DialogStationNetCreate::~DialogStationNetCreate()
 {
 }
 
+
+// 参数配置函数
+QString DialogStationNetCreate::getWorkName()
+{
+	return ui.lineEditWorkName->text();
+}
+
+QString DialogStationNetCreate::getWorkDirection()
+{
+	return ui.lineEditWorkDirection->text();
+}
+
+QString DialogStationNetCreate::getWorker()
+{
+	return ui.lineEditWorker->text();
+}
+
+QString DialogStationNetCreate::getOrganization()
+{
+	return ui.lineEditOrganization->text();
+}
+
+QString DialogStationNetCreate::getPhoneNum()
+{
+	return ui.lineEditPhoneNum->text();
+}
+
+QString DialogStationNetCreate::getPostalCode()
+{
+	return ui.lineEditPostalCode->text();
+}
+
+int DialogStationNetCreate::getProSystem()
+{
+	return ui.comboBoxProSystem->currentIndex();
+}
+
+int DialogStationNetCreate::getProFreq()
+{
+	return ui.comboBoxProFreq->currentIndex();
+}
+
+int DialogStationNetCreate::getProDuration()
+{
+	return ui.comboBoxProDuration->currentIndex();
+}
+
+
+// 路径选择按钮槽函数
 void DialogStationNetCreate::on_pushButtonDirSelect_clicked()
 {
 	QString curPath = QCoreApplication::applicationDirPath();
@@ -27,34 +70,4 @@ void DialogStationNetCreate::on_pushButtonDirSelect_clicked()
 		dlgTitle, curPath, QFileDialog::ShowDirsOnly);
 	if (!selectedDir.isEmpty())
 		ui.lineEditWorkDirection->setText(selectedDir);
-}
-
-void DialogStationNetCreate::on_pushButtonOK_clicked()
-{
-	if (ui.lineEditWorkName->text().isEmpty())
-		return;
-
-	if (m_sql.netIsExist(ui.lineEditWorkName->text()))
-	{
-		QMessageBox::information(NULL, "提示：", "子网已存在，请勿重复添加");
-		return;
-	}
-
-	netinfo netifo;
-	netifo.NETNAME = ui.lineEditWorkName->text();
-	netifo.WORKPATH = ui.lineEditWorkDirection->text();
-	netifo.OWNER = ui.lineEditWorker->text();
-	netifo.PINCHARGE = ui.lineEditOrganization->text();
-	netifo.PHONE = ui.lineEditPhoneNum->text();
-	netifo.EMAIL = ui.lineEditPostalCode->text();
-	netifo.SLNSYS = ui.comboBoxProSystem->currentIndex();
-	netifo.SLNPHS = ui.comboBoxProFreq->currentIndex();
-	// 原程序在此处未没有处理静态解时长
-	//		netifo.SLNSES = ui.comboBoxProDuration->currentIndex();
-	netifo.BASENUM = 0;
-	netifo.BRDCTYPE = 0;
-	netifo.COLAT = 0.0;
-	netifo.COLON = 0.0;
-	netifo.ROVERNUM = 0;
-	m_sql.insert_net2db(&netifo);
 }

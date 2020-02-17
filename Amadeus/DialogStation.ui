@@ -29,49 +29,20 @@
     </widget>
    </item>
   </layout>
-  <action name="actionNetCreate">
+  <action name="actionNetAdd">
    <property name="text">
-    <string>新建（New）</string>
+    <string>子网添加</string>
+   </property>
+   <property name="toolTip">
+    <string>子网添加</string>
    </property>
   </action>
-  <action name="actionNetConnect">
+  <action name="actionNetSet">
    <property name="text">
-    <string>连接（Connect）</string>
+    <string>子网设置</string>
    </property>
-  </action>
-  <action name="actionNetDisconnect">
-   <property name="text">
-    <string>断开（Disconnect）</string>
-   </property>
-  </action>
-  <action name="actionSiteAdd">
-   <property name="text">
-    <string>管理（Add）</string>
-   </property>
-  </action>
-  <action name="action_Set">
-   <property name="text">
-    <string>设置（Set）</string>
-   </property>
-  </action>
-  <action name="action_Remove">
-   <property name="text">
-    <string>移除（Remove）</string>
-   </property>
-  </action>
-  <action name="action_Start">
-   <property name="text">
-    <string>解算（Start）</string>
-   </property>
-  </action>
-  <action name="action_Stop">
-   <property name="text">
-    <string>停止（Stop）</string>
-   </property>
-  </action>
-  <action name="action_Edit">
-   <property name="text">
-    <string>编辑（Edit）</string>
+   <property name="toolTip">
+    <string>子网设置</string>
    </property>
   </action>
  </widget>

@@ -154,6 +154,7 @@
     <ClInclude Include="Nrtk\GPS.H" />
     <ClInclude Include="Nrtk\GPSmodel.h" />
     <ClInclude Include="Nrtk\rtklib.h" />
+    <ClInclude Include="Platform\utf8.h" />
     <ClInclude Include="PVT\assitFunc4Bin.h" />
     <ClInclude Include="PVT\bititemproc.h" />
     <ClInclude Include="PVT\CalcSvPVT.h" />

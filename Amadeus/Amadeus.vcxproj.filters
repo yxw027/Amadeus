@@ -41,6 +41,9 @@
     <Filter Include="Source Files\PVT">
       <UniqueIdentifier>{a1d6afb1-d8f4-4eb4-ba03-e82f180b8c69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Platform">
+      <UniqueIdentifier>{ed6949e2-abc2-4fbf-9231-87a5ad0a8c96}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -317,6 +320,9 @@
     </ClInclude>
     <ClInclude Include="globalfunc.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\utf8.h">
+      <Filter>Header Files\Platform</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

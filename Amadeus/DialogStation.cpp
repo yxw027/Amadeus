@@ -2,13 +2,9 @@
 #include "DialogStationNetCreate.h"
 #include "DialogStationSiteAdd.h"
 #include "msql.h"
+#include "./Platform/utf8.h"
 #include <QMenu>
 #include <QMessageBox>
-
-// 解决QT在VS里中文乱码问题
-#ifdef WIN32
-#pragma execution_character_set("utf-8")
-#endif
 
 const QString ROOT_LB = "监测站";
 
@@ -194,8 +190,6 @@ void DialogStation::deleteAllChild()
 	}
 }
 
-
-
 void DialogStation::on_treeWidget_customContextMenuRequested()
 {
 	// 创建右键弹出菜单
@@ -206,10 +200,11 @@ void DialogStation::on_treeWidget_customContextMenuRequested()
 	switch (itemType)
 	{
 	case TREE_NOTE_CORSTITLE:
-		menuList->addAction(ui.actionNetCreate);
+		menuList->addAction(ui.actionNetAdd);
 		break;
 	case TREE_NOTE_CORSNAME:
-		menuList->addAction(ui.actionSiteAdd);
+		menuList->addAction(ui.actionNetSet);
+		//menuList->addAction(ui.actionSiteAdd);
 		//menuList->addAction(ui.action_Disconnect);
 		//menuList->addAction(ui.action_Disconnect);
 		// menuList->addSeparator();
@@ -227,15 +222,8 @@ void DialogStation::on_treeWidget_customContextMenuRequested()
 	delete menuList; 
 }
 
-void DialogStation::on_actionNetCreate_triggered()
+void DialogStation::on_actionNetAdd_triggered()
 {
-	// 创建对话框
-	DialogStationNetCreate *dlgNetCreate = new DialogStationNetCreate(this);
-
-	// 设置对话框大小为固定
-	Qt::WindowFlags flags = dlgNetCreate->windowFlags();
-	dlgNetCreate->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
-
 	//HTREEITEM hChild = m_wndFileView.GetChildItem(m_wndFileView.GetSelectedItem());
 	//while (hChild) {
 	//	CString NetName = m_wndFileView.GetItemText(hChild);
@@ -246,23 +234,77 @@ void DialogStation::on_actionNetCreate_triggered()
 	//	hChild = m_wndFileView.GetNextSiblingItem(hChild);
 	//}
 
+	// 创建对话框
+	DialogStationNetCreate *dlgNetCreate = new DialogStationNetCreate(this);
+
+	// 设置对话框大小为固定
+	Qt::WindowFlags flags = dlgNetCreate->windowFlags();
+	dlgNetCreate->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
+
+	// 以模态方式显示对话框
 	int ret = dlgNetCreate->exec();
+	if (ret = QDialog::Accepted)
+	{
+		if ((dlgNetCreate->getWorkName()).isEmpty())
+		{
+			QMessageBox::information(NULL, "提示：", "子网名称不能为空");
+			return;
+		}
+
+		if (m_sql.netIsExist(dlgNetCreate->getWorkName()))
+		{
+			QMessageBox::information(NULL, "提示：", "子网已存在，请勿重复添加");
+			return;
+		}
+
+		netinfo netifo;
+		netifo.NETNAME = dlgNetCreate->getWorkName();
+		netifo.WORKPATH = dlgNetCreate->getWorkDirection();
+		netifo.OWNER = dlgNetCreate->getWorker();
+		netifo.PINCHARGE = dlgNetCreate->getOrganization();
+		netifo.PHONE = dlgNetCreate->getPhoneNum();
+		netifo.EMAIL = dlgNetCreate->getPostalCode();
+		netifo.SLNSYS = dlgNetCreate->getProSystem();
+		netifo.SLNPHS = dlgNetCreate->getProFreq();
+		// 原程序在此处就没有处理静态解时长
+		//		netifo.SLNSES = dlgNetCreate->getProDuration();
+		netifo.BASENUM = 0;
+		netifo.BRDCTYPE = 0;
+		netifo.COLAT = 0.0;
+		netifo.COLON = 0.0;
+		netifo.ROVERNUM = 0;
+		m_sql.insert_net2db(&netifo);
+		updateTreeList();
+	}
+
+	// 删除对话框
 	delete dlgNetCreate;
-	updateTreeList();
 }
 
 void DialogStation::on_actionSiteAdd_triggered()
 {
-	// 创建对话框
+	//CString NetName = m_wndFileView.GetItemText(m_wndFileView.GetSelectedItem());
+	//if (theApp.m_NetList.find(NetName) != theApp.m_NetList.end() && theApp.m_NetList.at(NetName)->m_runflag) {
+	//	AfxMessageBox("请先停止子网解算！");
+	//	return;
+	//}
+	//if (theApp.m_NetList.find(NetName) != theApp.m_NetList.end()) {
+	//	for (auto psock = theApp.m_NetList.at(NetName)->m_SiteList.begin(); psock != theApp.m_NetList.at(NetName)->m_SiteList.end(); psock++)
+	//	{
+	//		if (psock->second->psock.state) {
+	//			AfxMessageBox("请先停止数据接收！");
+	//			return;
+	//		}
+	//	}
+	//}
 	DialogStationSiteAdd *dlgSiteAdd = new DialogStationSiteAdd(this);
 
-	// 设置对话框大小为固定
+	// 设置对话框大小固定
 	Qt::WindowFlags flags = dlgSiteAdd->windowFlags();
 	dlgSiteAdd->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
 
-	// 以模态方式显示对话框
 	int ret = dlgSiteAdd->exec();
-	
-	// 删除对话框
+
 	delete dlgSiteAdd;
+	updateTreeList();
 }
