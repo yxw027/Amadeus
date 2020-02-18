@@ -161,9 +161,9 @@ int msql::getlist(QString field, QStringList& list, QString cmd)
 
 int msql::getsiteinfo(QString sitename, QStringList& infolist, int flag)
 {
-	QString cstr = QString("SELECT [DetectStationID],[DetectStationName],[DetectStatioLabel],[Remarks],[DetectNetID],[StationType],[CommType],[IP],[Com],[Usename],[PASSWORD],[Coord_X],[Coord_Y],[Coord_Z]\
-				FROM [%1].[DBO].[%2] WHERE %3='%4'").arg(dbname, SITE_CFG_TB, (flag == 0 ? SITENAME_TB : "DetectStatioLabel"), sitename);;
 	Q_ASSERT(!sitename.isEmpty());
+	QString cstr = QString("SELECT [DetectStationID],[DetectStationName],[DetectStatioLabel],[Remarks],[DetectNetID],[StationType],[CommType],[IP],[Com],[Usename],[PASSWORD],[Coord_X],[Coord_Y],[Coord_Z]\
+				FROM [%1].[DBO].[%2] WHERE %3='%4'").arg(dbname, SITE_CFG_TB, (flag == 0 ? SITENAME_TB : "DetectStatioLabel"), sitename);
 	//try
 	{
 		QSqlQuery query;
@@ -171,18 +171,18 @@ int msql::getsiteinfo(QString sitename, QStringList& infolist, int flag)
 		int recordCnt = countQueryRecord(query);
 		if (recordCnt == 0) return 0;
 
-		infolist.append(cstr = (query.value("DetectStationID")).toString());
-		infolist.append(cstr = (query.value("DetectStationName")).toString());
-		infolist.append(cstr = (query.value("DetectStatioLabel")).toString());
-		infolist.append(cstr = (query.value("StationType")).toString());
-		infolist.append(cstr = (query.value("CommType")).toString());
-		infolist.append(cstr = (query.value("IP")).toString());
-		infolist.append(cstr = (query.value("Com")).toString());
-		infolist.append(cstr = (query.value("Usename")).toString());
-		infolist.append(cstr = (query.value("PASSWORD")).toString());
-		infolist.append(cstr = (query.value("Coord_X")).toString());
-		infolist.append(cstr = (query.value("Coord_Y")).toString());
-		infolist.append(cstr = (query.value("Coord_Z")).toString());
+		infolist.append(query.value("DetectStationID").toString());
+		infolist.append(query.value("DetectStationName").toString());
+		infolist.append(query.value("DetectStatioLabel").toString());
+		infolist.append(query.value("StationType").toString());
+		infolist.append(query.value("CommType").toString());
+		infolist.append(query.value("IP").toString());
+		infolist.append(query.value("Com").toString());
+		infolist.append(query.value("Usename").toString());
+		infolist.append(query.value("PASSWORD").toString());
+		infolist.append(query.value("Coord_X").toString());
+		infolist.append(query.value("Coord_Y").toString());
+		infolist.append(query.value("Coord_Z").toString());
 
 		return infolist.count();
 	}//end try
@@ -211,6 +211,39 @@ void msql::insert_net2db(const netinfo* pnet)
 		QSqlQuery query;
 		query.exec(cstr);
 	//}
+	//catch (_com_error &e)
+	//{
+	//	sendsqlmsg(e);
+	//}
+}
+
+/* update socket struct infomation from sql */
+void msql::update_netinfo2str(QString NetName, netinfo* pnet)
+{
+	Q_ASSERT(!NetName.isEmpty());
+	Q_ASSERT(pnet != NULL);
+	
+	QString cstr = QString("SELECT * FROM CONFIG_DETECTNET WHERE DETECTNETNAME='%1'").arg(NetName);
+	//try 
+	{
+		QSqlQuery query;
+		query.exec(cstr);
+
+		int recordCnt = countQueryRecord(query);
+		if (recordCnt == 0)
+			return;
+
+		pnet->NETNAME = query.value("DETECTNETNAME").toString();
+		pnet->WORKPATH = query.value("FILEPATH").toString();
+		pnet->SLNSYS = query.value("SLNSYS").toInt();
+		pnet->SLNPHS = query.value("SLNPHS").toInt();
+		pnet->SLNSES = 0; // ???? add for debug
+		pnet->OWNER = query.value("OWNER").toString();
+		pnet->PINCHARGE = query.value("PINCHARGE").toString();
+		pnet->PHONE = query.value("PHONE").toString();
+		pnet->EMAIL = query.value("EMAIL").toString();
+		return;
+	}
 	//catch (_com_error &e)
 	//{
 	//	sendsqlmsg(e);

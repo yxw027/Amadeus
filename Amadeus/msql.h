@@ -36,6 +36,8 @@ public:
 	bool netIsExist(QString netname);
 	void insert_net2db(const netinfo* pnet);
 
+	void update_netinfo2str(QString NetName, netinfo* pnet);
+
 	QString getdbpath();
 	QString getdbname();
 	QString getuser();

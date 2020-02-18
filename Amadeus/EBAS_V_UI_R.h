@@ -57,7 +57,7 @@ class EBAS_V_UI_RApp : public QObject
 	Q_OBJECT
 
 public:
-	EBAS_V_UI_RApp(QObject *parent);
+	EBAS_V_UI_RApp();
 	~EBAS_V_UI_RApp();
 
 public:

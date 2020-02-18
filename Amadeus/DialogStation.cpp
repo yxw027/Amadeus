@@ -5,6 +5,7 @@
 #include "./Platform/utf8.h"
 #include <QMenu>
 #include <QMessageBox>
+#include "globalfunc.h"
 
 const QString ROOT_LB = "监测站";
 
@@ -290,48 +291,48 @@ void DialogStation::on_actionNetSet_triggered()
 	//	hChild = m_wndFileView.GetNextSiblingItem(hChild);
 	//}
 
-	// 创建对话框
-	DialogStationNetAdd *dlgNetAdd = new DialogStationNetAdd(this);
+	//// 创建对话框
+	//DialogStationNetAdd *dlgNetAdd = new DialogStationNetAdd(this);
 
-	// 设置对话框大小为固定
-	Qt::WindowFlags flags = dlgNetAdd->windowFlags();
-	dlgNetAdd->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
+	//// 设置对话框大小为固定
+	//Qt::WindowFlags flags = dlgNetAdd->windowFlags();
+	//dlgNetAdd->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
 
-	// 以模态方式显示对话框
-	int ret = dlgNetAdd->exec();
-	if (ret = QDialog::Accepted)
-	{
-		if ((dlgNetAdd->getWorkName()).isEmpty())
-			return;
+	//// 以模态方式显示对话框
+	//int ret = dlgNetAdd->exec();
+	//if (ret = QDialog::Accepted)
+	//{
+	//	if ((dlgNetAdd->getWorkName()).isEmpty())
+	//		return;
 
-		if (m_sql.netIsExist(dlgNetAdd->getWorkName()))
-		{
-			QMessageBox::information(NULL, "提示：", "子网已存在，请勿重复添加");
-			return;
-		}
+	//	if (m_sql.netIsExist(dlgNetAdd->getWorkName()))
+	//	{
+	//		QMessageBox::information(NULL, "提示：", "子网已存在，请勿重复添加");
+	//		return;
+	//	}
 
-		netinfo netifo;
-		netifo.NETNAME = dlgNetAdd->getWorkName();
-		netifo.WORKPATH = dlgNetAdd->getWorkDirection();
-		netifo.OWNER = dlgNetAdd->getWorker();
-		netifo.PINCHARGE = dlgNetAdd->getOrganization();
-		netifo.PHONE = dlgNetAdd->getPhoneNum();
-		netifo.EMAIL = dlgNetAdd->getPostalCode();
-		netifo.SLNSYS = dlgNetAdd->getProSystem();
-		netifo.SLNPHS = dlgNetAdd->getProFreq();
-		// 原程序在此处就没有处理静态解时长
-		//		netifo.SLNSES = dlgNetCreate->getProDuration();
-		netifo.BASENUM = 0;
-		netifo.BRDCTYPE = 0;
-		netifo.COLAT = 0.0;
-		netifo.COLON = 0.0;
-		netifo.ROVERNUM = 0;
-		m_sql.insert_net2db(&netifo);
-		updateTreeList();
-	}
+	//	netinfo netifo;
+	//	netifo.NETNAME = dlgNetAdd->getWorkName();
+	//	netifo.WORKPATH = dlgNetAdd->getWorkDirection();
+	//	netifo.OWNER = dlgNetAdd->getWorker();
+	//	netifo.PINCHARGE = dlgNetAdd->getOrganization();
+	//	netifo.PHONE = dlgNetAdd->getPhoneNum();
+	//	netifo.EMAIL = dlgNetAdd->getPostalCode();
+	//	netifo.SLNSYS = dlgNetAdd->getProSystem();
+	//	netifo.SLNPHS = dlgNetAdd->getProFreq();
+	//	// 原程序在此处就没有处理静态解时长
+	//	//		netifo.SLNSES = dlgNetCreate->getProDuration();
+	//	netifo.BASENUM = 0;
+	//	netifo.BRDCTYPE = 0;
+	//	netifo.COLAT = 0.0;
+	//	netifo.COLON = 0.0;
+	//	netifo.ROVERNUM = 0;
+	//	m_sql.insert_net2db(&netifo);
+	//	updateTreeList();
+	//}
 
-	// 删除对话框
-	delete dlgNetAdd;
+	//// 删除对话框
+	//delete dlgNetAdd;
 }
 
 void DialogStation::on_actionSiteAdd_triggered()

@@ -87,7 +87,7 @@
   <ItemGroup>
     <ClCompile Include="Communication\NtripClient.cpp" />
     <ClCompile Include="Communication\NtripSocket.cpp" />
-    <ClCompile Include="DialogMenuNetSet.cpp" />
+    <ClCompile Include="DialogMenuDBSet.cpp" />
     <ClCompile Include="DialogStation.cpp" />
     <ClCompile Include="DialogStationNetAdd.cpp" />
     <ClCompile Include="DialogStationSiteAdd.cpp" />
