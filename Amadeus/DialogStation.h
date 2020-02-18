@@ -34,6 +34,6 @@ private:
 private slots:
 	void on_treeWidget_customContextMenuRequested();
 	void on_actionNetAdd_triggered();
-//	void on_actionNetSet_triggered();
+	void on_actionNetSet_triggered();
 	void on_actionSiteAdd_triggered();
 };

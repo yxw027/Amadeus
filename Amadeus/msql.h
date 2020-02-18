@@ -1,6 +1,6 @@
 #pragma once
 
-#include "globalfunc.h"
+#include "EBAS_V_UI_R.h"
 #include <QObject>
 #include <QSqlDatabase>
 
