@@ -2,6 +2,7 @@
 #include "../stdafx.h"
 #include "NtripSocket.h"
 #include "../EBAS_V_UI_R.h"
+#include <QString>
 //#include "dataprocess.h"
 
 static DWORD WINAPI strthread(void *arg)
@@ -14,7 +15,7 @@ static DWORD WINAPI strthread(void *arg)
 //	// 	FILE* rawfile = NULL; // raw file received
 //	// 	FILE* obsfile = NULL; // rnx file decode
 //	// 	FILE* navfile = NULL; // rnx file decode
-//	string workpath(psinfo->rtcm_fwrt.workpath);
+//	QString workpath(psinfo->rtcm_fwrt.workpath);
 //
 //	char buff[MAXSRCTBL] = { 0 }, msg[MAXSTRMSG] = { 0 }, path[256] = { 0 };
 //	char *p = buff;
@@ -28,24 +29,23 @@ static DWORD WINAPI strthread(void *arg)
 //#endif
 //
 //	strinitcom();
-//	string port;
-//	int PORT = stoi(psinfo->Port);
-//	PORT = PORT + 1;
-//	port = to_string(PORT+1);
+//	int PORT = (psinfo->Port).toInt();
+//	QString port = QString::number(PORT+1);
 //	if (psinfo->m_ConnectType == STR_SERIAL)
 //	{
 //		psinfo->m_ConnectType = (ConnectType)STR_TCPCLI;
-//	}// 所有的数据都从这几个网口进入
+//	}
+//	// 所有的数据都从这几个网口进入，调用QString::toUtf8().data()将QString转换为char *
 //	if (psinfo->MountPoint == "BASE")
-//		sprintf(path, "%s:%s@%s:%s/%s", psinfo->User, psinfo->Pwd, "127.0.0.1", "30001", psinfo->MountPoint);
+//		sprintf(path, "%s:%s@%s:%s/%s", psinfo->User.toUtf8().data(), psinfo->Pwd.toUtf8().data(), "127.0.0.1", "30001", psinfo->MountPoint.toUtf8().data());
 //	else if (psinfo->MountPoint == "ROV1")
-//		sprintf(path, "%s:%s@%s:%s/%s", psinfo->User, psinfo->Pwd, "127.0.0.1", "30002", psinfo->MountPoint);
+//		sprintf(path, "%s:%s@%s:%s/%s", psinfo->User.toUtf8().data(), psinfo->Pwd.toUtf8().data(), "127.0.0.1", "30002", psinfo->MountPoint.toUtf8().data());
 //	else if (psinfo->MountPoint == "ROV2")
-//		sprintf(path, "%s:%s@%s:%s/%s", psinfo->User, psinfo->Pwd, "127.0.0.1", "30003", psinfo->MountPoint);
+//		sprintf(path, "%s:%s@%s:%s/%s", psinfo->User.toUtf8().data(), psinfo->Pwd.toUtf8().data(), "127.0.0.1", "30003", psinfo->MountPoint.toUtf8().data());
 //	else if (psinfo->MountPoint == "ROV3")
-//		sprintf(path, "%s:%s@%s:%s/%s", psinfo->User, psinfo->Pwd, "127.0.0.1", "30004", psinfo->MountPoint);
+//		sprintf(path, "%s:%s@%s:%s/%s", psinfo->User.toUtf8().data(), psinfo->Pwd.toUtf8().data(), "127.0.0.1", "30004", psinfo->MountPoint.toUtf8().data());
 //	else if (psinfo->MountPoint == "ROV4")
-//		sprintf(path, "%s:%s@%s:%s/%s", psinfo->User, psinfo->Pwd, "127.0.0.1", "30005", psinfo->MountPoint);
+//		sprintf(path, "%s:%s@%s:%s/%s", psinfo->User.toUtf8().data(), psinfo->Pwd.toUtf8().data(), "127.0.0.1", "30005", psinfo->MountPoint.toUtf8().data());
 //
 //	//	sprintf(path,"C:\Users\Administrator\Desktop\test.DAT::N::+0::x0::S=0");
 //
@@ -252,7 +252,7 @@ CNtripSocket::~CNtripSocket()
 }
 
 // CNtripSocket member functions
-void CNtripSocket::LinkInitial(ConnectType ConType, string IP, string Port, string User, string Password, string MountPoint)
+void CNtripSocket::LinkInitial(ConnectType ConType, QString IP, QString Port, QString User, QString Password, QString MountPoint)
 {
 	//this->IP = IP.empty() ? "" : IP;
 	//this->Port = Port == "" ? "2101" : Port;
@@ -412,25 +412,22 @@ void CNtripSocket::close()
 
 int CNtripSocket::LinkClose()
 {
-	//if (this == NULL) //// hjq 2015-07-01
-	//{
-		return 0;
-	//}
-//////	try
+
+////	try
 //	{
-//		////////Close();
+//		Close();
 //		Sleep(100);
-//		////////string* Msg = new string;
-//		////////Msg->Format("IP: %s:%d:%s 连接关闭！\r\n", IP, Port, MountPoint);
-//		////////::SendMessage(AfxGetMainWnd()->GetSafeHwnd(), WM_OUTPUT_MSG, (WPARAM)Msg, (LPARAM)0);
-//		////////TRACE("IP: %s:%d:%s 连接关闭！\r\n", this->IP, this->Port, this->MountPoint);
+//	/*	string* Msg = new string;
+//		Msg->Format("IP: %s:%d:%s 连接关闭！\r\n", IP, Port, MountPoint);
+//		::SendMessage(AfxGetMainWnd()->GetSafeHwnd(), WM_OUTPUT_MSG, (WPARAM)Msg, (LPARAM)0);
+//		TRACE("IP: %s:%d:%s 连接关闭！\r\n", this->IP, this->Port, this->MountPoint);*/
 //		m_Connect = false;
 //	}
-//	////////catch (Exception* pException)
-//	////////{
-//	////////	pException->Delete();
-//	////////	return -1;
-//	////////}
+	//catch (Exception* pException)
+	//{
+	//	pException->Delete();
+		return -1;
+	//}
 }
 
 

@@ -333,6 +333,7 @@ void DialogStation::on_actionNetSet_triggered()
 
 	//// É¾³ý¶Ô»°¿ò
 	//delete dlgNetAdd;
+	UpdateNetList();
 }
 
 void DialogStation::on_actionSiteAdd_triggered()

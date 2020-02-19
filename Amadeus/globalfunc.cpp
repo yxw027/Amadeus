@@ -25,23 +25,26 @@ static void clearnetlist()
 void UpdateNetList()
 {
 	clearnetlist();
-	NetList NetTemp;
+	NetList tNetList;
 	QString cstr;
-	// 更新列表
 	//try
 	{
 		QStringList   cstrList;
-		// 获取子网名称列表
+
+		// 遍历子网
 		m_sql.getnetlist(cstrList);
 		int size = cstrList.count();
 		for (int i = 0; i < size; i++)
 		{
-			// 获取子网名称
 			QString NetName = cstrList.at(i);
-			NetStr* pNet = new NetStr();
-			pNet->m_runflag = false;
-			NetTemp[NetName] = pNet;
-			m_sql.update_netinfo2str(NetName, &pNet->m_Netinfo);
+			NetStr* pNetStr = new NetStr();
+			pNetStr->m_runflag = false;
+			tNetList[NetName] = pNetStr;
+
+			// 获取子网信息结构体
+			m_sql.update_netinfo2str(NetName, &pNetStr->m_Netinfo);
+
+			// pNet->m_Server没有被使用，已在本版本代码中被去掉
 			//if (theApp.m_NetList.find(NetName) != theApp.m_NetList.end())
 			//{
 			//	pNet->m_Server = theApp.m_NetList.find(NetName)->second->m_Server;
@@ -50,69 +53,71 @@ void UpdateNetList()
 			//{
 			//	// start server
 			//}
-			// 挂载点列表筛选
+
+			// 获取子网下测站信息
 			QStringList MountPointList;
 			m_sql.getsitelist(NetName, MountPointList);
 			int MPsize = MountPointList.count();
 			for (int site_i = 0; site_i < MPsize; site_i++)
 			{
-				// 获取ID号
 				cstr = MountPointList.at(site_i);
 				QStringList cstrinfo;
 				m_sql.getsiteinfo(cstr, cstrinfo);
 				if (cstrinfo.count())
-					cstr = cstrinfo.at(0);
+					// 老版程序此处为cstr = cstrinfo.at(0)，会导致下一个if条件判断得不到正确结果
+					cstr = cstrinfo.at(1);
 				else
 					continue;
+
 				if (theApp.m_NetList.find(NetName) != theApp.m_NetList.end()
 					&& theApp.m_NetList.find(NetName).value()->m_SiteList.find(cstr)
 					!= theApp.m_NetList.find(NetName).value()->m_SiteList.end())
 				{
-					NetTemp[NetName]->m_SiteList[cstr] = theApp.m_NetList.find(NetName).value()->m_SiteList.find(cstr).value();
-					continue;
+					// theApp中已存在，则维持theApp中的值，不更新theApp
+					tNetList[NetName]->m_SiteList[cstr] = theApp.m_NetList.find(NetName).value()->m_SiteList.find(cstr).value();
 				}
-				/*"ID","MOUNTPOINT","COM_TYPE","IP","PORT","USERNAME","PASSWORD","LATITUDE","LONGITUDE","HEIGHT"*/
-				int index = 1;
-				CNtripClient*  temp = new CNtripClient;
+				// 
+				else
+				{
+					// theApp中不存在，则使用数据库中的记录更新theApp
+					CNtripClient tNtripClient;
+					//"MOUNTPOINT","SITATABLE","SITETYPE","COM_TYPE","IP","PORT","USERNAME","PASSWORD","LATITUDE","LONGITUDE","HEIGHT"
+					int index = 1;
+					// 获取工作路径,老程序为sprintf(temp->rtcm_fwrt.workpath, pNet->m_Netinfo.WORKPATH, pNet->m_Netinfo.WORKPATH.GetLength());
+					sprintf(tNtripClient.rtcm_fwrt.workpath, pNetStr->m_Netinfo.WORKPATH.toUtf8().data());
+					// 获取 所在子网名称
+					tNtripClient.rtcm_fwrt.m_NetName = NetName;
+					// 获取 挂载点名称
+					tNtripClient.MountPoint = cstrinfo.at(index++);
+					// 获取 显示标识
+					tNtripClient.sitelable = cstrinfo.at(index++);
+					// 获取 测站类型 1 基准站 2 移动站 3 广播星历
+					cstr = cstrinfo.at(index++);
+					tNtripClient.sitetype = cstr.toInt();
+					// 获取 连接类型  0=TCP CLIENT  1=TCP SERVER  2=NTRIP CLIENT
+					cstr = cstrinfo.at(index++);
+					tNtripClient.m_ConnectType = (ConnectType)(cstr.toInt());
+					// 获取 IP地址
+					tNtripClient.IP = cstrinfo.at(index++);
+					// 获取 PORT端口号
+					tNtripClient.Port = cstrinfo.at(index++);
+					// 获取 用户名
+					tNtripClient.User = cstrinfo.at(index++);
+					// 获取 密码
+					tNtripClient.Pwd = cstrinfo.at(index++);
+					// 获取 测站经纬度
+					cstr = cstrinfo.at(index++);
+					tNtripClient.XYZ[0] = cstr.toDouble();;
+					cstr = cstrinfo.at(index++);
+					tNtripClient.XYZ[1] = cstr.toDouble();
+					cstr = cstrinfo.at(index++);
+					tNtripClient.XYZ[2] = cstr.toDouble();
+//					ecef2pos(tNtripClient.XYZ, tNtripClient.BLH);
+					tNtripClient.netname = NetName;
 
-				//sprintf(temp->rtcm_fwrt.workpath, (pNet->m_Netinfo.WORKPATH).toUtf8().data(), pNet->m_Netinfo.WORKPATH.length());
-
-				//lock(&temp->m_SocketLock);
-				//// 获取挂载点
-				//temp->MountPoint = cstrinfo.at(index++);
-				//// 获取显示标识
-				//temp->sitelable = cstrinfo.at(index++);
-				//// 获取所在的子网名称
-				//temp->rtcm_fwrt.m_NetName = NetName;
-				//// 获取测站类型 1 基准站 2 移动站 3 广播星历
-				//cstr = cstrinfo.GetAt(index++);
-				//temp->sitetype = atoi(cstr.GetBuffer(0));
-				//cstr.ReleaseBuffer();
-				//// 获取  连接类型  0=TCP CLIENT  1=TCP SERVER  2=NTRIP CLIENT
-				//cstr = cstrinfo.GetAt(index++);
-				//temp->m_ConnectType = (ConnectType)(atoi(cstr.GetBuffer(0)));
-				//cstr.ReleaseBuffer();
-				//// 获取  IP地址
-				//temp->IP = cstrinfo.GetAt(index++);
-				//// 获取  PORT端口号
-				//temp->Port = cstrinfo.GetAt(index++);
-				//// 获取  用户名密码
-				//temp->User = cstrinfo.GetAt(index++);
-				//temp->Pwd = cstrinfo.GetAt(index++);
-				//// 获取 测站经纬度
-				//cstr = cstrinfo.GetAt(index++);
-				//temp->XYZ[0] = (atof(cstr.GetBuffer(0)));
-				//cstr.ReleaseBuffer();
-				//cstr = cstrinfo.GetAt(index++);
-				//temp->XYZ[1] = (atof(cstr.GetBuffer(0)));
-				//cstr.ReleaseBuffer();
-				//cstr = cstrinfo.GetAt(index++);
-				//temp->XYZ[2] = (atof(cstr.GetBuffer(0)));
-				//cstr.ReleaseBuffer();
-				//ecef2pos(temp->XYZ, temp->BLH);
-				//temp->netname = NetName;
-				//unlock(&temp->m_SocketLock);
-				//NetTemp[temp->rtcm_fwrt.m_NetName]->m_SiteList.insert(make_pair(temp->MountPoint.MakeUpper(), temp));
+					// 将tNtripClient插入到tNetList的SiteList中
+					tNetList[tNtripClient.rtcm_fwrt.m_NetName]->m_SiteList.insert(tNtripClient.MountPoint.toUpper(), &tNtripClient);
+				}		
 			}
 		}
 	}
@@ -120,26 +125,30 @@ void UpdateNetList()
 	//{
 	//	cstr.Format("ERROR: void CMainFrame::UpdateNetList(void)   %s ", e->m_strError);
 	//}
+
 	// 遍历原列表，删除列表多余的测站
-	//NetList::iterator Net_i(theApp.m_NetList.begin());
-	//while (Net_i != theApp.m_NetList.end())
-	//{
-	//	map<CString, CNtripClient*>::iterator site_i(Net_i->second->m_SiteList.begin());
-	//	while (site_i != Net_i->second->m_SiteList.end())
-	//	{
-	//		// 如果找着则把临时中的删除，否则删除原列表中多余的(因为迭代器的原因不能直接删除)
-	//		if (!(NetTemp.find(Net_i->first) != NetTemp.end() && NetTemp.find(Net_i->first)->second->m_SiteList.find(site_i->first) != NetTemp.find(Net_i->first)->second->m_SiteList.end()))
-	//		{
-	//			CNtripClient* pClient = (CNtripClient*)site_i->second;
-	//			pClient->~CNtripClient();
-	//			site_i->second = NULL;
-	//		}
-	//		site_i++;
-	//	}
-	//	Net_i++;
-	//}
-	//// 删除指针被置空的列表
-	//theApp.m_NetList.clear();
-	//theApp.m_NetList.insert(NetTemp.begin(), NetTemp.end());
+	NetList::iterator Net_i(theApp.m_NetList.begin());
+	while (Net_i != theApp.m_NetList.end())
+	{
+		QMap<QString, CNtripClient*>::iterator site_i(Net_i.value()->m_SiteList.begin());
+		while (site_i != Net_i.value()->m_SiteList.end())
+		{
+			// 如果找着则把临时中的删除，否则删除原列表中多余的(因为迭代器的原因不能直接删除)
+			if (!(tNetList.find(Net_i.key()) != tNetList.end() && tNetList.find(Net_i.key()).value()->m_SiteList.find(site_i.key()) != tNetList.find(Net_i.key()).value()->m_SiteList.end()))
+			{
+				CNtripClient* pClient = (CNtripClient*)site_i.value();
+				pClient->~CNtripClient();
+				site_i.value() = NULL;
+			}
+			site_i++;
+		}
+		Net_i++;
+	}
+	// 删除指针被置空的列表
+	theApp.m_NetList.clear();
+	for(Net_i= tNetList.begin(); Net_i != tNetList.end(); Net_i++)
+	{ 
+		theApp.m_NetList.insert(Net_i.key(), Net_i.value());
+	}
 }
 

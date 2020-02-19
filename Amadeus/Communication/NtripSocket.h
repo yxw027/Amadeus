@@ -1,11 +1,8 @@
 #pragma once
 #include <QObject>
 #include "..\Nrtk\rtklib.h"
-#include <map>
-#include <string>
-#include <vector>
-
-using namespace std;
+#include <QMap>
+#include <QString>
 
 const size_t MAX_BUFFSIZE = 4096;//4096;
 
@@ -17,13 +14,13 @@ typedef struct wrt_rnx
 	char	navpath[MAX_PATH];
 	char	rawpath[MAX_PATH];
 	gtime_t	last_time;
-	string	m_NetName;
+	QString	m_NetName;
 };
 
 // 不属于本类，只在DlgSiteSignal.cpp中使用，后续需要移走
 typedef struct _showsignal
 {
-	string	sitename;
+	QString	sitename;
 	obs_t	obsinfo;
 };
 
@@ -89,21 +86,21 @@ public:
 	UINT	m_Status;                // 测站状态
 	size_t	m_nLength;
 	size_t	m_nDelLength;
-	string	Port;
-	string	IP;
-	string	sitelable;	// add by hjq 2016-04-24
-	string	netname;	// add by hjq 2016-04-24
-	string Port_s;//串口号
-	string BPS;//波特率
+	QString	Port;
+	QString	IP;
+	QString	sitelable;	// add by hjq 2016-04-24
+	QString	netname;	// add by hjq 2016-04-24
+	QString Port_s;//串口号
+	QString BPS;//波特率
 	int	sitetype;	// 1=[base] 2=[rover] or 3=[brdc]
 	int	m_MsgType; // massege type  rtcm ubx rt17 and so on
 	double       BLH[3];
 	double       XYZ[3];
-	string      User;
-	string      Pwd;
-	string      MountPoint;             // 挂载点
+	QString      User;
+	QString      Pwd;
+	QString      MountPoint;             // 挂载点
 	int	MountNumber;						//挂载点编号
-	vector<string> Information;            // Source Table 中选中的挂载点信息 
+	QStringList Information;            // Source Table 中选中的挂载点信息 
 	BYTE         buff[MAX_BUFFSIZE];
 
 	BOOL	 openState; //线程打开标志位
@@ -121,9 +118,9 @@ public:
 	strconv_t*	conv;
 	gtime_t	last_time;	// 记录最后输出的历元时间，防止错误输出
 	wrt_rnx	rtcm_fwrt;	// 文件输出rtcm
-	map<long, obs_t*>	obs_quene;	// 观测历元记录
-	map<long, nav_t>	nav_quene;	// 导航文件记录
-	map<int, struct _showpos> satpos;
+	QMap<long, obs_t*>	obs_quene;	// 观测历元记录
+	QMap<long, nav_t>	nav_quene;	// 导航文件记录
+	QMap<int, struct _showpos> satpos;
 
 public:
 	CNtripSocket();
@@ -131,7 +128,7 @@ public:
 public:
 	void connect();	// connect by using rtklib
 	void close();	// close by using rtklib
-	void LinkInitial(ConnectType ConType, string IP, string Port, string User, string Password, string MountPoint);
+	void LinkInitial(ConnectType ConType, QString IP, QString Port, QString User, QString Password, QString MountPoint);
 	int  LinkClose();
 };
 
