@@ -96,6 +96,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="msql.cpp" />
+    <ClCompile Include="Nrtk\WindupCorrection.cpp" />
     <ClCompile Include="PVT\assitFunc4Bin.c" />
     <ClCompile Include="PVT\bititemproc.c" />
     <ClCompile Include="PVT\CalcSvPVT.c" />

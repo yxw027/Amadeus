@@ -4,6 +4,7 @@
 #include "DialogMenuDBSet.h"
 #include <QMessageBox>
 #include "./Platform/utf8.h"
+#include "globalfunc.h"
 
 MainWindow::MainWindow(QWidget *parent)
 	: QMainWindow(parent)
@@ -15,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
 	this->setWindowState(Qt::WindowMaximized); 
 
 	createDialogStationManege();
+	UpdateNetList();
 }
 
 void MainWindow::createDialogStationManege()
@@ -52,4 +54,5 @@ void MainWindow::on_actionDBSet_triggered()
 
 	// É¾³ý¶Ô»°¿ò
 	delete dlgDBSet;
+	UpdateNetList();
 }

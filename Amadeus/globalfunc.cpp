@@ -112,7 +112,7 @@ void UpdateNetList()
 					tNtripClient.XYZ[1] = cstr.toDouble();
 					cstr = cstrinfo.at(index++);
 					tNtripClient.XYZ[2] = cstr.toDouble();
-//					ecef2pos(tNtripClient.XYZ, tNtripClient.BLH);
+					ecef2pos(tNtripClient.XYZ, tNtripClient.BLH);
 					tNtripClient.netname = NetName;
 
 					// 将tNtripClient插入到tNetList的SiteList中

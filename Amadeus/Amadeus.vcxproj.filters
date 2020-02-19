@@ -160,6 +160,9 @@
     <ClCompile Include="DialogMenuDBSet.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Nrtk\WindupCorrection.cpp">
+      <Filter>Source Files\Rtklib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="MainWindow.h">
