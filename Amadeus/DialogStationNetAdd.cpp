@@ -13,51 +13,32 @@ DialogStationNetAdd::~DialogStationNetAdd()
 {
 }
 
-
-// ²ÎÊıÅäÖÃº¯Êı
-QString DialogStationNetAdd::getWorkName()
+netArg DialogStationNetAdd::getNetArg()
 {
-	return ui.lineEditWorkName->text();
+	netArg arg;
+	arg.netName = ui.lineEditWorkName->text();
+	arg.workPath = ui.lineEditWorkDirection->text();
+	arg.company = ui.lineEditOrganization->text();
+	arg.admin = ui.lineEditWorker->text();
+	arg.phone = ui.lineEditPhoneNum->text();
+	arg.email = ui.lineEditPostalCode->text();
+	arg.slnsys = ui.comboBoxProSystem->currentIndex();
+	arg.slnphs = ui.comboBoxProFreq->currentIndex();
+	arg.slnses = ui.comboBoxProDuration->currentIndex();
+	return arg;
 }
 
-QString DialogStationNetAdd::getWorkDirection()
+void DialogStationNetAdd::setNetArg(const netArg arg)
 {
-	return ui.lineEditWorkDirection->text();
-}
-
-QString DialogStationNetAdd::getWorker()
-{
-	return ui.lineEditWorker->text();
-}
-
-QString DialogStationNetAdd::getOrganization()
-{
-	return ui.lineEditOrganization->text();
-}
-
-QString DialogStationNetAdd::getPhoneNum()
-{
-	return ui.lineEditPhoneNum->text();
-}
-
-QString DialogStationNetAdd::getPostalCode()
-{
-	return ui.lineEditPostalCode->text();
-}
-
-int DialogStationNetAdd::getProSystem()
-{
-	return ui.comboBoxProSystem->currentIndex();
-}
-
-int DialogStationNetAdd::getProFreq()
-{
-	return ui.comboBoxProFreq->currentIndex();
-}
-
-int DialogStationNetAdd::getProDuration()
-{
-	return ui.comboBoxProDuration->currentIndex();
+	 ui.lineEditWorkName->setText(arg.netName);
+	 ui.lineEditWorkDirection->setText(arg.workPath);
+	 ui.lineEditOrganization->setText(arg.company);
+	 ui.lineEditWorker->setText(arg.admin);
+	 ui.lineEditPhoneNum->setText(arg.phone);
+	 ui.lineEditPostalCode->setText(arg.email);
+	 ui.comboBoxProSystem->setCurrentIndex(arg.slnsys);
+	 ui.comboBoxProFreq->setCurrentIndex(arg.slnphs);
+	 ui.comboBoxProDuration->setCurrentIndex(arg.slnses);
 }
 
 

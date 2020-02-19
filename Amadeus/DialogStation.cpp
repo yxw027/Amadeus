@@ -225,15 +225,7 @@ void DialogStation::on_treeWidget_customContextMenuRequested()
 
 void DialogStation::on_actionNetAdd_triggered()
 {
-	//HTREEITEM hChild = m_wndFileView.GetChildItem(m_wndFileView.GetSelectedItem());
-	//while (hChild) {
-	//	CString NetName = m_wndFileView.GetItemText(hChild);
-	//	if (theApp.m_NetList.find(NetName) != theApp.m_NetList.end() && theApp.m_NetList.at(NetName)->m_runflag) {
-	//		AfxMessageBox("请先停止子网解算！");
-	//		return;
-	//	}
-	//	hChild = m_wndFileView.GetNextSiblingItem(hChild);
-	//}
+	// 添加新子网，无需停止其他子网的解算
 
 	// 创建对话框
 	DialogStationNetAdd *dlgNetAdd = new DialogStationNetAdd(this);
@@ -246,26 +238,27 @@ void DialogStation::on_actionNetAdd_triggered()
 	int ret = dlgNetAdd->exec();
 	if (ret = QDialog::Accepted)
 	{
-		if ((dlgNetAdd->getWorkName()).isEmpty())
+		QString netName = dlgNetAdd->getNetArg().netName;
+		if (netName.isEmpty())
 			return;
 
-		if (m_sql.netIsExist(dlgNetAdd->getWorkName()))
+		if (m_sql.netIsExist(netName))
 		{
 			QMessageBox::information(NULL, "提示：", "子网已存在，请勿重复添加");
 			return;
 		}
 
+		netArg arg = dlgNetAdd->getNetArg();
 		netinfo netifo;
-		netifo.NETNAME = dlgNetAdd->getWorkName();
-		netifo.WORKPATH = dlgNetAdd->getWorkDirection();
-		netifo.OWNER = dlgNetAdd->getWorker();
-		netifo.PINCHARGE = dlgNetAdd->getOrganization();
-		netifo.PHONE = dlgNetAdd->getPhoneNum();
-		netifo.EMAIL = dlgNetAdd->getPostalCode();
-		netifo.SLNSYS = dlgNetAdd->getProSystem();
-		netifo.SLNPHS = dlgNetAdd->getProFreq();
-		// 原程序在此处就没有处理静态解时长
-		//		netifo.SLNSES = dlgNetCreate->getProDuration();
+		netifo.NETNAME = arg.netName;
+		netifo.WORKPATH = arg.workPath;
+		netifo.OWNER = arg.admin;
+		netifo.PINCHARGE = arg.company;
+		netifo.PHONE = arg.phone;
+		netifo.EMAIL = arg.email;
+		netifo.SLNSYS = arg.slnsys;
+		netifo.SLNPHS = arg.slnphs;
+		netifo.SLNSES = arg.slnsys;
 		netifo.BASENUM = 0;
 		netifo.BRDCTYPE = 0;
 		netifo.COLAT = 0.0;
@@ -281,25 +274,35 @@ void DialogStation::on_actionNetAdd_triggered()
 
 void DialogStation::on_actionNetSet_triggered()
 {
-	//HTREEITEM hChild = m_wndFileView.GetChildItem(m_wndFileView.GetSelectedItem());
-	//while (hChild) {
-	//	CString NetName = m_wndFileView.GetItemText(hChild);
-	//	if (theApp.m_NetList.find(NetName) != theApp.m_NetList.end() && theApp.m_NetList.at(NetName)->m_runflag) {
-	//		AfxMessageBox("请先停止子网解算！");
-	//		return;
-	//	}
-	//	hChild = m_wndFileView.GetNextSiblingItem(hChild);
-	//}
+	QString cstr = ui.treeWidget->currentItem()->text(nodeName);
+	if (theApp.m_NetList.find(cstr) != theApp.m_NetList.end()) 
+	{
+		if (theApp.m_NetList.value(cstr)->m_runflag)
+		{
+			QMessageBox::information(this,"提示", "请先停止子网解算！");
+			return;
+		}
+		for (auto psock = theApp.m_NetList.value(cstr)->m_SiteList.begin(); psock != theApp.m_NetList.value(cstr)->m_SiteList.end(); psock++)
+		{
+			if (psock.value()->psock.state) 
+			{
+				QMessageBox::information(this, "提示", "请先停止数据接收！");
+				return;
+			}
+		}
+	}
 
-	//// 创建对话框
-	//DialogStationNetAdd *dlgNetAdd = new DialogStationNetAdd(this);
+	// 创建对话框
+	DialogStationNetAdd *dlgNetAdd = new DialogStationNetAdd(this);
 
-	//// 设置对话框大小为固定
-	//Qt::WindowFlags flags = dlgNetAdd->windowFlags();
-	//dlgNetAdd->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
+	// 设置对话框大小为固定
+	Qt::WindowFlags flags = dlgNetAdd->windowFlags();
+	dlgNetAdd->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
 
-	//// 以模态方式显示对话框
-	//int ret = dlgNetAdd->exec();
+
+
+	// 以模态方式显示对话框
+	int ret = dlgNetAdd->exec();
 	//if (ret = QDialog::Accepted)
 	//{
 	//	if ((dlgNetAdd->getWorkName()).isEmpty())

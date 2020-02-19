@@ -4,6 +4,18 @@
 #include <QString>
 #include "ui_DialogStationNetAdd.h"
 
+struct netArg
+{
+	QString	netName;
+	QString	workPath;
+	QString	company;
+	QString	admin;
+	QString	phone;
+	QString	email;
+	int	slnsys;
+	int	slnphs;
+	int	slnses;
+};
 
 class DialogStationNetAdd : public QDialog
 {
@@ -13,15 +25,8 @@ public:
 	DialogStationNetAdd(QWidget *parent = Q_NULLPTR);
 	~DialogStationNetAdd();
 
-	QString DialogStationNetAdd::getWorkName();
-	QString DialogStationNetAdd::getWorkDirection();
-	QString DialogStationNetAdd::getWorker();
-	QString DialogStationNetAdd::getOrganization();
-	QString DialogStationNetAdd::getPhoneNum();
-	QString DialogStationNetAdd::getPostalCode();
-	int DialogStationNetAdd::getProSystem();
-	int DialogStationNetAdd::getProFreq();
-	int DialogStationNetAdd::getProDuration();
+	netArg getNetArg();
+	void setNetArg(const netArg arg);
 
 private:
 	Ui::DialogStationNetAdd ui;
