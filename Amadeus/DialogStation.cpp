@@ -205,8 +205,10 @@ void DialogStation::on_treeWidget_customContextMenuRequested()
 		break;
 	case TREE_NOTE_CORSNAME:
 		menuList->addAction(ui.actionNetSet);
-		menuList->addAction(ui.actionNetConnect);
-		menuList->addAction(ui.actionNetDelete);		 
+		//menuList->addAction(ui.actionNetConnect);
+		//menuList->addAction(ui.actionNetDisconnect);
+		menuList->addAction(ui.actionNetDelete);	
+		menuList->addAction(ui.actionSiteAdd);
 		break;
 	case TREE_NOTE_MPNAME:
 		break;

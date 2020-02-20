@@ -53,12 +53,28 @@
     <string>子网连接</string>
    </property>
   </action>
+  <action name="actionNetDisconnect">
+   <property name="text">
+    <string>子网断开</string>
+   </property>
+   <property name="toolTip">
+    <string>子网断开</string>
+   </property>
+  </action>
   <action name="actionNetDelete">
    <property name="text">
     <string>子网删除</string>
    </property>
    <property name="toolTip">
     <string>子网删除</string>
+   </property>
+  </action>
+  <action name="actionSiteAdd">
+   <property name="text">
+    <string>测站添加</string>
+   </property>
+   <property name="toolTip">
+    <string>测站添加</string>
    </property>
   </action>
  </widget>
