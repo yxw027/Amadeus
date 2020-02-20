@@ -206,7 +206,7 @@ void msql::insert_net2db(const netinfo* pnet)
 	QString cstr;
 	cstr.sprintf("INSERT INTO [%s].[DBO].[%s] ([DetectNetName] ,[filepath] ,[SLNSYS] ,[SLNPHS] ,[owner] ,[PINCHARGE] ,[phone] ,[email] ,[Clatitude] ,[Clongitude])\
      VALUES ('%s','%s',%d,%d,'%s','%s','%s','%s',%18.6f,%18.6f)",
-		dbname.toUtf8().data(), NET_CFG_TB.toUtf8().data(), (pnet->NETNAME).toUtf8().data(), (pnet->WORKPATH).toUtf8().data(), pnet->SLNSYS, pnet->SLNPHS, (pnet->OWNER).toUtf8().data(), (pnet->PINCHARGE).toUtf8().data(), (pnet->PHONE).toUtf8().data(), (pnet->EMAIL).toUtf8().data(), 0.0, 0.0);
+		dbname.toUtf8().data(), NET_CFG_TB.toUtf8().data(), pnet->NETNAME.toUtf8().data(), pnet->WORKPATH.toUtf8().data(), pnet->SLNSYS, pnet->SLNPHS, pnet->OWNER.toUtf8().data(), pnet->PINCHARGE.toUtf8().data(), pnet->PHONE.toUtf8().data(), pnet->EMAIL.toUtf8().data(), 0.0, 0.0);
 	//try {
 		QSqlQuery query;
 		query.exec(cstr);
@@ -244,6 +244,55 @@ void msql::update_netinfo2str(QString NetName, netinfo* pnet)
 		pnet->EMAIL = query.value("EMAIL").toString();
 		return;
 	}
+	//catch (_com_error &e)
+	//{
+	//	sendsqlmsg(e);
+	//}
+}
+
+void msql::update_netinfo2db(QString NetName, const netinfo* pnet)
+{
+	Q_ASSERT(pnet != NULL);
+	Q_ASSERT(!NetName.isEmpty());
+	QString cstr;
+	cstr.sprintf("UPDATE [%s].[DBO].[%s] SET \
+				 [DETECTNETNAME]	= '%s'\
+				,[FILEPATH]	= '%s'\
+				,[SLNSYS]	= %d \
+				,[SLNPHS]	= %d \
+				,[OWNER]	= '%s'\
+				,[PINCHARGE]	= '%s'\
+				,[PHONE]	= '%11s'\
+				,[EMAIL]	= '%s'\
+				,[CLATITUDE]	= %18.6f \
+				,[CLONGITUDE]	= %18.6f \
+				,[BASESTATION_AMOUNT]	= %d \
+				,[DETECTSTATION_AMOUNT]	= %d \
+				,[BRDCTYPE]	= %d \
+				,[REMARK]	= '%s' \
+				WHERE DETECTNETID=(SELECT DETECTNETID FROM CONFIG_DETECTNET WHERE DETECTNETNAME='%s')",
+		dbname.toUtf8().data()
+		, NET_CFG_TB.toUtf8().data()
+		, pnet->NETNAME.toUtf8().data()
+		, pnet->WORKPATH.toUtf8().data()
+		, pnet->SLNSYS
+		, pnet->SLNPHS
+		, pnet->OWNER.toUtf8().data()
+		, pnet->PINCHARGE.toUtf8().data()
+		, pnet->PHONE.toUtf8().data()
+		, pnet->EMAIL.toUtf8().data()
+		, pnet->COLAT
+		, pnet->COLON
+		, pnet->BASENUM
+		, pnet->ROVERNUM
+		, pnet->BRDCTYPE
+		, pnet->COMMENT.toUtf8().data()
+		, NetName.toUtf8().data());
+	//try
+	{
+		QSqlQuery query;
+		query.exec(cstr);
+	}//try
 	//catch (_com_error &e)
 	//{
 	//	sendsqlmsg(e);

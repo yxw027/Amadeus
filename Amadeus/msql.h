@@ -37,6 +37,7 @@ public:
 	void insert_net2db(const netinfo* pnet);
 
 	void update_netinfo2str(QString NetName, netinfo* pnet);
+	void update_netinfo2db(QString oldName, const netinfo* pnet);
 
 	QString getdbpath();
 	QString getdbname();

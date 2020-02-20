@@ -41,7 +41,6 @@ void DialogStationNetAdd::setNetArg(const netArg arg)
 	 ui.comboBoxProDuration->setCurrentIndex(arg.slnses);
 }
 
-
 // 路径选择按钮槽函数
 void DialogStationNetAdd::on_pushButtonDirSelect_clicked()
 {

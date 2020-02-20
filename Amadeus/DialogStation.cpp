@@ -274,7 +274,8 @@ void DialogStation::on_actionNetAdd_triggered()
 
 void DialogStation::on_actionNetSet_triggered()
 {
-	QString cstr = ui.treeWidget->currentItem()->text(nodeName);
+	QTreeWidgetItem *currentItem = ui.treeWidget->currentItem();
+	QString cstr = currentItem->text(nodeName);
 	if (theApp.m_NetList.find(cstr) != theApp.m_NetList.end()) 
 	{
 		if (theApp.m_NetList.value(cstr)->m_runflag)
@@ -282,14 +283,14 @@ void DialogStation::on_actionNetSet_triggered()
 			QMessageBox::information(this,"提示", "请先停止子网解算！");
 			return;
 		}
-		for (auto psock = theApp.m_NetList.value(cstr)->m_SiteList.begin(); psock != theApp.m_NetList.value(cstr)->m_SiteList.end(); psock++)
-		{
-			if (psock.value()->psock.state) 
-			{
-				QMessageBox::information(this, "提示", "请先停止数据接收！");
-				return;
-			}
-		}
+		//for (auto psock = theApp.m_NetList.value(cstr)->m_SiteList.begin(); psock != theApp.m_NetList.value(cstr)->m_SiteList.end(); psock++)
+		//{
+		//	if (psock.value()->psock.state) 
+		//	{
+		//		QMessageBox::information(this, "提示", "请先停止数据接收！");
+		//		return;
+		//	}
+		//}
 	}
 
 	// 创建对话框
@@ -299,43 +300,72 @@ void DialogStation::on_actionNetSet_triggered()
 	Qt::WindowFlags flags = dlgNetAdd->windowFlags();
 	dlgNetAdd->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
 
+	netinfo netifo;
+	m_sql.update_netinfo2str(cstr, &netifo);
 
+	netArg arg;
+	arg.netName = netifo.NETNAME;
+	arg.workPath = netifo.WORKPATH;
+	arg.company = netifo.PINCHARGE;
+	arg.admin = netifo.OWNER;
+	arg.phone = netifo.PHONE;
+	arg.email = netifo.EMAIL;
+	arg.slnsys = netifo.SLNSYS;
+	arg.slnphs = netifo.SLNPHS;
+	arg.slnses = netifo.SLNSES;
+	dlgNetAdd->setNetArg(arg);
 
 	// 以模态方式显示对话框
 	int ret = dlgNetAdd->exec();
-	//if (ret = QDialog::Accepted)
-	//{
-	//	if ((dlgNetAdd->getWorkName()).isEmpty())
-	//		return;
+	if (ret = QDialog::Accepted)
+	{
+		QString tNetName = arg.netName;
+		if (tNetName.isEmpty())
+			return;
 
-	//	if (m_sql.netIsExist(dlgNetAdd->getWorkName()))
-	//	{
-	//		QMessageBox::information(NULL, "提示：", "子网已存在，请勿重复添加");
-	//		return;
-	//	}
+		auto pNet = theApp.m_NetList.value(tNetName);
+		// workpath没处理
+		arg = dlgNetAdd->getNetArg();
+		pNet->m_Netinfo.NETNAME = arg.netName;
+		pNet->m_Netinfo.SLNSYS = arg.slnsys;
+		pNet->m_Netinfo.SLNSES = arg.slnses;
+		pNet->m_Netinfo.SLNPHS = arg.slnphs;
+		pNet->m_Netinfo.EMAIL = arg.email;
+		pNet->m_Netinfo.OWNER = arg.admin;
+		pNet->m_Netinfo.PHONE = arg.phone;
+		pNet->m_Netinfo.PINCHARGE = arg.company;
 
-	//	netinfo netifo;
-	//	netifo.NETNAME = dlgNetAdd->getWorkName();
-	//	netifo.WORKPATH = dlgNetAdd->getWorkDirection();
-	//	netifo.OWNER = dlgNetAdd->getWorker();
-	//	netifo.PINCHARGE = dlgNetAdd->getOrganization();
-	//	netifo.PHONE = dlgNetAdd->getPhoneNum();
-	//	netifo.EMAIL = dlgNetAdd->getPostalCode();
-	//	netifo.SLNSYS = dlgNetAdd->getProSystem();
-	//	netifo.SLNPHS = dlgNetAdd->getProFreq();
-	//	// 原程序在此处就没有处理静态解时长
-	//	//		netifo.SLNSES = dlgNetCreate->getProDuration();
-	//	netifo.BASENUM = 0;
-	//	netifo.BRDCTYPE = 0;
-	//	netifo.COLAT = 0.0;
-	//	netifo.COLON = 0.0;
-	//	netifo.ROVERNUM = 0;
-	//	m_sql.insert_net2db(&netifo);
-	//	updateTreeList();
-	//}
+		// 删除旧项，插入新项
+		NetList::iterator Net_i(theApp.m_NetList.find(tNetName));
+		theApp.m_NetList.erase(Net_i);
+		theApp.m_NetList[arg.netName] = pNet;
 
-	//// 删除对话框
-	//delete dlgNetAdd;
+		// 更新该项在数据库中的记录
+		netinfo netifo;
+		netifo.NETNAME = arg.netName;
+		netifo.SLNSYS = arg.slnsys;
+		netifo.SLNPHS = arg.slnphs;
+		netifo.SLNSES = arg.slnses;
+		netifo.EMAIL = arg.email;
+		netifo.OWNER = arg.admin;
+		netifo.PHONE = arg.phone;
+		netifo.PINCHARGE = arg.company;
+		netifo.WORKPATH = arg.workPath;
+		netifo.BASENUM = 0;
+		netifo.BRDCTYPE = 0;
+		netifo.COLAT = 0.0;
+		netifo.COLON = 0.0;
+		netifo.ROVERNUM = 0;
+		netifo.COMMENT = "";
+		m_sql.update_netinfo2db(tNetName, &netifo);
+
+		// 更新新挂载点名称至界面
+		QTreeWidgetItem *item = new QTreeWidgetItem(DialogStation::TREE_NOTE_CORSNAME);
+		currentItem->setText(nodeName, arg.netName);
+	}
+
+	// 删除对话框
+	delete dlgNetAdd;
 }
 
 void DialogStation::on_actionSiteAdd_triggered()
@@ -354,14 +384,14 @@ void DialogStation::on_actionSiteAdd_triggered()
 	//		}
 	//	}
 	//}
-	DialogStationSiteAdd *dlgSiteAdd = new DialogStationSiteAdd(this);
+	//DialogStationSiteAdd *dlgSiteAdd = new DialogStationSiteAdd(this);
 
-	// 设置对话框大小固定
-	Qt::WindowFlags flags = dlgSiteAdd->windowFlags();
-	dlgSiteAdd->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
+	//// 设置对话框大小固定
+	//Qt::WindowFlags flags = dlgSiteAdd->windowFlags();
+	//dlgSiteAdd->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
 
-	int ret = dlgSiteAdd->exec();
+	//int ret = dlgSiteAdd->exec();
 
-	delete dlgSiteAdd;
-	updateTreeList();
+	//delete dlgSiteAdd;
+	//updateTreeList();
 }
