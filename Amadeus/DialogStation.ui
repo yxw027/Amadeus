@@ -45,6 +45,22 @@
     <string>子网设置</string>
    </property>
   </action>
+  <action name="actionNetConnect">
+   <property name="text">
+    <string>子网连接</string>
+   </property>
+   <property name="toolTip">
+    <string>子网连接</string>
+   </property>
+  </action>
+  <action name="actionNetDelete">
+   <property name="text">
+    <string>子网删除</string>
+   </property>
+   <property name="toolTip">
+    <string>子网删除</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

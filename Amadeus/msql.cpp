@@ -299,6 +299,24 @@ void msql::update_netinfo2db(QString NetName, const netinfo* pnet)
 	//}
 }
 
+void msql::erasenet(QString netname)
+{
+	Q_ASSERT(!netname.isEmpty());
+	QString cstr;
+	//try 
+	{
+		cstr.sprintf("DELETE FROM %s WHERE DetectNetID=(SELECT DetectNetID FROM %s WHERE DetectNetName='%s')", SITE_CFG_TB.toUtf8().data(), NET_CFG_TB.toUtf8().data(), netname.toUtf8().data());
+		QSqlQuery query;
+		query.exec(cstr);
+		cstr.sprintf("DELETE FROM %s WHERE DetectNetName='%s'", NET_CFG_TB.toUtf8().data(), netname.toUtf8().data());
+		query.exec(cstr);
+	}
+	//catch (_com_error &e)
+	//{
+	//	sendsqlmsg(e);
+	//}
+}
+
 bool msql::fieldcheck(QString indx_field, QString obj_field, QString val)
 {
 	Q_ASSERT(!val.isEmpty());

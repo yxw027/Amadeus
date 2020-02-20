@@ -205,10 +205,8 @@ void DialogStation::on_treeWidget_customContextMenuRequested()
 		break;
 	case TREE_NOTE_CORSNAME:
 		menuList->addAction(ui.actionNetSet);
-		//menuList->addAction(ui.actionSiteAdd);
-		//menuList->addAction(ui.action_Disconnect);
-		//menuList->addAction(ui.action_Disconnect);
-		// menuList->addSeparator();
+		menuList->addAction(ui.actionNetConnect);
+		menuList->addAction(ui.actionNetDelete);		 
 		break;
 	case TREE_NOTE_MPNAME:
 		break;
@@ -366,6 +364,36 @@ void DialogStation::on_actionNetSet_triggered()
 
 	// 删除对话框
 	delete dlgNetAdd;
+}
+
+void DialogStation::on_actionNetDelete_triggered()
+{
+	// 确认删除
+	QString dlgTitle = "确认";
+	QString strInfo = "是否确认删除？";
+	QMessageBox::StandardButton  defaultBtn = QMessageBox::NoButton; 
+	QMessageBox::StandardButton result;
+	result = QMessageBox::question(this, dlgTitle, strInfo,
+		QMessageBox::Yes | QMessageBox::No ,
+		defaultBtn);
+	 if (result == QMessageBox::No)
+		return;
+
+	QTreeWidgetItem *currentItem = ui.treeWidget->currentItem();
+	QString cstr = currentItem->text(nodeName);
+	auto netidx = theApp.m_NetList.find(cstr);
+	if (netidx != theApp.m_NetList.end() && netidx.value()->m_runflag) 
+	{
+		QMessageBox::information(this,"提示","请先停止子网解算");
+		return;
+	}
+	m_sql.erasenet(cstr);
+	auto siteidx = netidx.value()->m_SiteList.begin();
+	while (netidx.value()->m_SiteList.size())
+	{
+		netidx.value()->m_SiteList.erase(netidx.value()->m_SiteList.begin());
+	}
+	updateTreeList();
 }
 
 void DialogStation::on_actionSiteAdd_triggered()
