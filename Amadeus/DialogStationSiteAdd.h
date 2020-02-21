@@ -2,6 +2,7 @@
 
 #include <QDialog>
 #include "ui_DialogStationSiteAdd.h"
+#include <QSqlQueryModel>
 
 class DialogStationSiteAdd : public QDialog
 {
@@ -9,8 +10,16 @@ class DialogStationSiteAdd : public QDialog
 
 public:
 	DialogStationSiteAdd(QWidget *parent = Q_NULLPTR);
+	DialogStationSiteAdd(const QString arg, QWidget *parent = Q_NULLPTR);
 	~DialogStationSiteAdd();
 
 private:
 	Ui::DialogStationSiteAdd ui;
+	void initDialog();
+
+private:
+	QString netName;
+
+	QSqlQueryModel *qryModel;
+	QItemSelectionModel *theSelection;
 };

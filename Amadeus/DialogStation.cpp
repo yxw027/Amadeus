@@ -400,28 +400,37 @@ void DialogStation::on_actionNetDelete_triggered()
 
 void DialogStation::on_actionSiteAdd_triggered()
 {
-	//CString NetName = m_wndFileView.GetItemText(m_wndFileView.GetSelectedItem());
-	//if (theApp.m_NetList.find(NetName) != theApp.m_NetList.end() && theApp.m_NetList.at(NetName)->m_runflag) {
-	//	AfxMessageBox("请先停止子网解算！");
-	//	return;
-	//}
-	//if (theApp.m_NetList.find(NetName) != theApp.m_NetList.end()) {
-	//	for (auto psock = theApp.m_NetList.at(NetName)->m_SiteList.begin(); psock != theApp.m_NetList.at(NetName)->m_SiteList.end(); psock++)
-	//	{
-	//		if (psock->second->psock.state) {
-	//			AfxMessageBox("请先停止数据接收！");
-	//			return;
-	//		}
-	//	}
-	//}
-	//DialogStationSiteAdd *dlgSiteAdd = new DialogStationSiteAdd(this);
+	QTreeWidgetItem *currentItem = ui.treeWidget->currentItem();
+	QString netName = currentItem->text(nodeName);
+	if (theApp.m_NetList.find(netName) != theApp.m_NetList.end())
+	{
+		if (theApp.m_NetList.value(netName)->m_runflag)
+		{
+			QMessageBox::information(this, "提示", "请先停止子网解算！");
+			return;
+		}
+		//for (auto psock = theApp.m_NetList.value(cstr)->m_SiteList.begin(); psock != theApp.m_NetList.value(cstr)->m_SiteList.end(); psock++)
+		//{
+		//	if (psock.value()->psock.state) 
+		//	{
+		//		QMessageBox::information(this, "提示", "请先停止数据接收！");
+		//		return;
+		//	}
+		//}
+	}
+	DialogStationSiteAdd *dlgSiteAdd = new DialogStationSiteAdd(netName,this);
+	// 设置对话框大小为固定
+	Qt::WindowFlags flags = dlgSiteAdd->windowFlags();
+	dlgSiteAdd->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
 
-	//// 设置对话框大小固定
-	//Qt::WindowFlags flags = dlgSiteAdd->windowFlags();
-	//dlgSiteAdd->setWindowFlags(flags | Qt::MSWindowsFixedSizeDialogHint);
+	// 以模态方式显示对话框
+	int ret = dlgSiteAdd->exec();
+	if (ret = QDialog::Accepted)
+	{
+//		UpdateData(false);
+		updateTreeList();
+	}
 
-	//int ret = dlgSiteAdd->exec();
-
-	//delete dlgSiteAdd;
-	//updateTreeList();
+	// 删除对话框
+	delete dlgSiteAdd;
 }

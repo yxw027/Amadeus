@@ -31,6 +31,6 @@ public:
 private:
 	Ui::DialogStationNetAdd ui;
 
-	private slots:
+private slots:
 	void on_pushButtonDirSelect_clicked();
 };

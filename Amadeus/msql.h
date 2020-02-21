@@ -55,8 +55,9 @@ private:
 	bool fieldcheck(QString indx_field, QString obj_field, QString val);
 	int countQueryRecord(QSqlQuery query);
 
-private:
+public:
 	QSqlDatabase DB;
+private:
 	QString dbpath;  // 服务器名称
 	QString dbname;  // 数据库名称
 	QString user;    // 登陆用户名
