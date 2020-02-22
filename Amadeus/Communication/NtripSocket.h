@@ -2,7 +2,6 @@
 #include <QObject>
 #include "..\Nrtk\rtklib.h"
 #include <QMap>
-#include <QString>
 
 const size_t MAX_BUFFSIZE = 4096;//4096;
 

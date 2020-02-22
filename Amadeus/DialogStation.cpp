@@ -2,7 +2,7 @@
 #include "DialogStationNetAdd.h"
 #include "DialogStationSiteAdd.h"
 #include "msql.h"
-#include "./Platform/utf8.h"
+#include "Platform/utf8.h"
 #include <QMenu>
 #include <QMessageBox>
 #include "globalfunc.h"
@@ -428,7 +428,7 @@ void DialogStation::on_actionSiteAdd_triggered()
 	if (ret = QDialog::Accepted)
 	{
 //		UpdateData(false);
-		updateTreeList();
+//		updateTreeList();
 	}
 
 	// É¾³ý¶Ô»°¿ò

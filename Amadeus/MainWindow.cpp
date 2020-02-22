@@ -3,7 +3,7 @@
 #include "qdockwidget.h"
 #include "DialogMenuDBSet.h"
 #include <QMessageBox>
-#include "./Platform/utf8.h"
+#include "Platform/utf8.h"
 #include "globalfunc.h"
 
 MainWindow::MainWindow(QWidget *parent)

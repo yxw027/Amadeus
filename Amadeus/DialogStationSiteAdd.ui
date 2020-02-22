@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>507</width>
+    <width>300</width>
     <height>443</height>
    </rect>
   </property>
@@ -31,14 +31,14 @@
        <widget class="QComboBox" name="comboBoxConnectType"/>
       </item>
       <item row="0" column="2">
-       <widget class="QLabel" name="labelnetAddress">
+       <widget class="QLabel" name="labelNetAddressOrSerialPort">
         <property name="text">
          <string>地址</string>
         </property>
        </widget>
       </item>
       <item row="0" column="3">
-       <widget class="QLineEdit" name="lineEditAddress"/>
+       <widget class="QComboBox" name="comboBoxNetAddressOrSerialPort"/>
       </item>
       <item row="1" column="1">
        <widget class="QPushButton" name="pushButtonConnectTest">
@@ -48,14 +48,14 @@
        </widget>
       </item>
       <item row="1" column="2">
-       <widget class="QLabel" name="labelPort">
+       <widget class="QLabel" name="labelNetPortOrSerialBaudRate">
         <property name="text">
          <string>端口</string>
         </property>
        </widget>
       </item>
       <item row="1" column="3">
-       <widget class="QLineEdit" name="lineEditPort"/>
+       <widget class="QComboBox" name="comboBoxPortNetPortOrSerialBaudRate"/>
       </item>
      </layout>
     </widget>

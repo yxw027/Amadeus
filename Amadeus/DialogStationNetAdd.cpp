@@ -1,6 +1,6 @@
 #include "DialogStationNetAdd.h"
 #include <QFileDialog>
-#include "./Platform/utf8.h"
+#include "Platform/utf8.h"
 
 
 DialogStationNetAdd::DialogStationNetAdd(QWidget *parent)

@@ -1,6 +1,6 @@
 #include "DialogMenuDBSet.h"
 #include "msql.h"
-#include "./Platform/utf8.h"
+#include "Platform/utf8.h"
 
 msql m_sql;
 
