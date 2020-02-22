@@ -9,12 +9,15 @@ class MainWindow : public QMainWindow
 
 public:
 	MainWindow(QWidget *parent = Q_NULLPTR);
+	void closeEvent(QCloseEvent *event);
 
 private:
 	Ui::MainWindowClass ui;
 
 private:
 	void createDialogStationManege();
+	void saveDockWidgetLayoutSets();
+	void restoreDockWidgetLayoutSets();
 
 private slots:
 	void on_actionDBSet_triggered();

@@ -35,4 +35,5 @@ private:
 
 private slots:
 	void on_comboBoxConnectType_currentIndexChanged(int index);
+	void on_pushButtonConnectTest_clicked();
 };
