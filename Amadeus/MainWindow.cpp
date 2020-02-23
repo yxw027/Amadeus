@@ -13,14 +13,17 @@ MainWindow::MainWindow(QWidget *parent)
 {
 	ui.setupUi(this);
 
-	createDialogStationManege();
+	// 恢复布局设置
+	restoreDockWidgetLayoutSet();
+	createDialogStation();
+
+	//这个操作不该在此处，应该在各子负责的模块内，老程序在此处进行了全部程序的初始化，故暂时保留，后续再在各子的模块内延迟初始化
 	UpdateNetList();
-	restoreDockWidgetLayoutSets();
 }
 
 
 
-void MainWindow::createDialogStationManege()
+void MainWindow::createDialogStation()
 {
 	// 创建对话框
 	DialogStation *DialogStationManege = new DialogStation(this);
@@ -31,6 +34,36 @@ void MainWindow::createDialogStationManege()
 	//显示对话框
 	DialogStationManege->show();
 }
+
+void MainWindow::saveDockWidgetLayoutSet()
+{
+	QSettings settings("HwaCreate", "Amadeus");
+	settings.beginGroup("mainWindow");
+	settings.setValue("geometry", saveGeometry());
+	settings.setValue("state", saveState());
+	settings.endGroup();
+}
+
+void MainWindow::restoreDockWidgetLayoutSet()
+{
+	QSettings settings("HwaCreate", "Amadeus");
+	settings.beginGroup("mainWindow");
+	restoreGeometry(settings.value("geometry").toByteArray());
+	restoreState(settings.value("state").toByteArray());
+	settings.endGroup();
+}
+
+void MainWindow::closeEvent(QCloseEvent* event)
+{    
+	// 保存布局设置
+	saveDockWidgetLayoutSet();
+
+	// 执行关闭操作
+	event->accept();
+}
+
+
+
 
 // 网络配置菜单槽函数
 void MainWindow::on_actionDBSet_triggered()
@@ -52,26 +85,22 @@ void MainWindow::on_actionDBSet_triggered()
 	UpdateNetList();
 }
 
-void MainWindow::saveDockWidgetLayoutSets()
+void MainWindow::on_actionCtrlDialogStaion_triggered()
 {
-	QSettings settings("HwaCreate", "Amadeus");
-	settings.beginGroup("mainWindow");
-	settings.setValue("geometry", saveGeometry());
-	settings.setValue("state", saveState());
-	settings.endGroup();
+	ui.dockWidgetStation->show();
 }
 
-void MainWindow::restoreDockWidgetLayoutSets()
+void MainWindow::on_actionCtrlMsgPro_triggered()
 {
-	QSettings settings("HwaCreate", "Amadeus");
-	settings.beginGroup("mainWindow");
-	restoreGeometry(settings.value("geometry").toByteArray());
-	restoreState(settings.value("state").toByteArray());
-	settings.endGroup();
+	ui.dockWidgetMsgPro->show();
 }
 
-void MainWindow::closeEvent(QCloseEvent* event)
-{    
-	saveDockWidgetLayoutSets();
-	event->accept();
+void MainWindow::on_actionCtrlMsgRcv_triggered()
+{
+	ui.dockWidgetMsgRcv->show();
+}
+
+void MainWindow::on_actionCtrlMsgFind_triggered()
+{
+	ui.dockWidgetMsgFind->show();
 }

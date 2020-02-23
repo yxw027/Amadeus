@@ -29,7 +29,20 @@
     </property>
     <addaction name="actionDBSet"/>
    </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>视图</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="actionCtrlDialogStaion"/>
+    <addaction name="separator"/>
+    <addaction name="actionCtrlMsgPro"/>
+    <addaction name="actionCtrlMsgRcv"/>
+    <addaction name="actionCtrlMsgFind"/>
+   </widget>
    <addaction name="menu"/>
+   <addaction name="menu_2"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -59,7 +72,7 @@
   </widget>
   <widget class="QDockWidget" name="dockWidgetStation">
    <property name="windowTitle">
-    <string>监测站管理</string>
+    <string>测站</string>
    </property>
    <attribute name="dockWidgetArea">
     <number>1</number>
@@ -90,6 +103,26 @@
    </property>
    <property name="toolTip">
     <string>数据库设置</string>
+   </property>
+  </action>
+  <action name="actionCtrlDialogStaion">
+   <property name="text">
+    <string>测站窗口</string>
+   </property>
+  </action>
+  <action name="actionCtrlMsgPro">
+   <property name="text">
+    <string>解算窗口</string>
+   </property>
+  </action>
+  <action name="actionCtrlMsgRcv">
+   <property name="text">
+    <string>接收窗口</string>
+   </property>
+  </action>
+  <action name="actionCtrlMsgFind">
+   <property name="text">
+    <string>查找窗口</string>
    </property>
   </action>
  </widget>

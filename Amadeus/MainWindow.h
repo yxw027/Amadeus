@@ -15,10 +15,14 @@ private:
 	Ui::MainWindowClass ui;
 
 private:
-	void createDialogStationManege();
-	void saveDockWidgetLayoutSets();
-	void restoreDockWidgetLayoutSets();
+	void createDialogStation();
+	void saveDockWidgetLayoutSet();
+	void restoreDockWidgetLayoutSet();
 
 private slots:
 	void on_actionDBSet_triggered();
+	void on_actionCtrlDialogStaion_triggered();
+	void on_actionCtrlMsgPro_triggered();
+	void on_actionCtrlMsgRcv_triggered();
+	void on_actionCtrlMsgFind_triggered();
 };
