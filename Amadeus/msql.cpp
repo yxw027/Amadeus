@@ -27,10 +27,9 @@ bool msql::cfginit()
 	QFile ifile(filename);
 	if (!ifile.open(QIODevice::ReadOnly | QIODevice::Text))
 	{
-		//sendmsginfo("Warning: .\\bin\\sql.cfg can not open!");
+		emit signalShowMsg("msgFind", "Warning: .\\bin\\sql.cfg can not open!");
 		return false;
 	}
-
 	QTextStream iStream(&ifile);
 	QString line;
 	while (!iStream.atEnd())

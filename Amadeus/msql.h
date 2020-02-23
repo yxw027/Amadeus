@@ -63,6 +63,9 @@ private:
 	QString pwd;	 // 登陆密码
 
 	connectState state;	// 数据库连接状态标志位
+
+signals:
+	void signalShowMsg(const QString &type, const QString &msg);
 };
 
 extern msql m_sql;
