@@ -12,6 +12,7 @@ DialogMenuDBSet::DialogMenuDBSet(QWidget *parent)
 	, DBname("")
 {
 	ui.setupUi(this);
+	setWindowTitle(" ˝æ›ø‚…Ë÷√");
 	initDialog();
 }
 

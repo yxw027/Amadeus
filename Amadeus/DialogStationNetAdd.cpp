@@ -7,6 +7,7 @@ DialogStationNetAdd::DialogStationNetAdd(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
+	setWindowTitle("×ÓÍøÉèÖÃ");
 }
 
 DialogStationNetAdd::~DialogStationNetAdd()

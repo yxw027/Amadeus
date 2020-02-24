@@ -13,6 +13,7 @@ DialogStation::DialogStation(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
+	setWindowTitle("测站管理");
 
 	// 解决右键菜单不弹出问题，机制暂不清楚
 	ui.treeWidget->setContextMenuPolicy(Qt::CustomContextMenu);

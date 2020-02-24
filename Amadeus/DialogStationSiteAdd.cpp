@@ -12,6 +12,7 @@ DialogStationSiteAdd::DialogStationSiteAdd(QWidget *parent)
 	: QDialog(parent)
 {
 	ui.setupUi(this);
+	setWindowTitle("≤‚’æ…Ë÷√");
 	initDialog();
 }
 
@@ -20,6 +21,7 @@ DialogStationSiteAdd::DialogStationSiteAdd(const QString arg, QWidget *parent)
 {
 	netName = arg;
 	ui.setupUi(this);
+	setWindowTitle("≤‚’æ…Ë÷√");
 	initDialog();
 }
 
