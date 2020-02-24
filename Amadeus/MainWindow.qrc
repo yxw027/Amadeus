@@ -4,5 +4,6 @@
         <file>Resources/obsNet.bmp</file>
         <file>Resources/obsRoot.bmp</file>
         <file>Resources/obsRover.bmp</file>
+        <file>Resources/MainWindowTitle.png</file>
     </qresource>
 </RCC>
