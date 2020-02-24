@@ -13,6 +13,9 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -71,6 +74,9 @@
    </widget>
   </widget>
   <widget class="QDockWidget" name="dockWidgetStation">
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
    <property name="windowTitle">
     <string>测站管理</string>
    </property>

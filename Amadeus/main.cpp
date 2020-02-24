@@ -13,6 +13,11 @@ int main(int argc, char *argv[])
 	QIcon icon = QIcon(":/icons/Resources/MainWindowTitle.png");
 	w.setWindowIcon(icon);
 
+	QFile file("Qss/psblack.qss");
+	file.open(QFile::ReadOnly);
+	QString stylesheet = QString::fromLatin1(file.readAll());
+	w.setStyleSheet(stylesheet);
+
 	w.show();
 	return a.exec();
 }
